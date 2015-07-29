@@ -14,26 +14,50 @@ public class Channel {
 	private Queue<Movie> queue;
 	private final String name;
 	private Genre[] genres;
+	private int[] actorIDs;
 	
 	/**
 	 * Constructs an object of type Channel with the given name.
-	 * Adds no movie filters.
+	 * Adds no movie genre or actor filters.
 	 * @param name the displayed name of the Channel
+	 * @throws IllegalArgumentException if no name provided
 	 */
 	public Channel(String name) {
+		if (name == null) throw new IllegalArgumentException();
 		this.name = name;
 		queue = new LinkedList<>();
 	}
 	
 	/**
-	 * Constructs an object of type Channel, with the given name, and adds a list of Genres for the Channel to play.
-	 * @param name the displayed name of the Channel
-	 * @param genres list of Genres that this Channel will play
+	 * 
+	 * @return the first item in the movie queue (currently playing movie)
 	 */
-	public Channel(String name, Genre[] genres) {
-		this(name);
-		this.genres = genres;
+	public Movie getCurrentMovie() {
+		return queue.peek();
 	}
+	
+	/**
+	 * 
+	 * @param movie to be added to end of queue
+	 */
+	public void addMovie(Movie movie) {
+		if (movie == null) return;
+		queue.add(movie);
+	}
+	
+	/**
+	 * Adds a number of movies equal to 50 - queue.size to the end of the queue
+	 */
+	public void populateQueue() {
+		if (queue.size() > 30) return;
+		else {
+			for (int i = (50 - queue.size()); i > 0; i--) {
+				//TODO add function call to random movie generator
+			}
+		}
+	}
+	
+	//Getters and setters below
 	
 	/**
 	 * 
@@ -41,5 +65,37 @@ public class Channel {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	/**
+	 * 
+	 * @return list of Genres for this channel
+	 */
+	public Genre[] getGenres() {
+		return genres;
+	}
+	
+	/**
+	 * 
+	 * @param genres list of enum type Genres
+	 */
+	public void setGenres(Genre[] genres) {
+		this.genres = genres;
+	}
+	
+	/**
+	 * 
+	 * @return actorIDs list of actor ids for this channel
+	 */
+	public int[] getActors() {
+		return actorIDs;
+	}
+	
+	/**
+	 * 
+	 * @param actorIDs list of ints that correspond to actors in database
+	 */
+	public void setActors(int[] actorIDs) {
+		this.actorIDs = actorIDs;
 	}
 }

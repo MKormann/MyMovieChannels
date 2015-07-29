@@ -10,11 +10,14 @@ import java.util.Queue;
  * @author Matt Kormann
  */
 public class Channel {
+	
+	private final int MAX = 25;
 
 	private Queue<Movie> queue;
-	private final String name;
+	private final String NAME;
 	private Genre[] genres;
 	private int[] actorIDs;
+	
 	
 	/**
 	 * Constructs an object of type Channel with the given name.
@@ -24,20 +27,20 @@ public class Channel {
 	 */
 	public Channel(String name) {
 		if (name == null) throw new IllegalArgumentException();
-		this.name = name;
+		this.NAME = name;
 		queue = new LinkedList<>();
 	}
 	
 	/**
-	 * 
-	 * @return the first item in the movie queue (currently playing movie)
+	 * Retrieve the currently playing movie
+	 * @return the first item in the movie queue
 	 */
 	public Movie getCurrentMovie() {
 		return queue.peek();
 	}
 	
 	/**
-	 * 
+	 * Add a movie
 	 * @param movie to be added to end of queue
 	 */
 	public void addMovie(Movie movie) {
@@ -46,12 +49,20 @@ public class Channel {
 	}
 	
 	/**
-	 * Adds a number of movies equal to 50 - queue.size to the end of the queue
+	 * Remove current movie, start next movie's counter
+	 */
+	private void startNextMovie() {
+		queue.remove();
+		queue.peek().startMovie();
+	}
+	
+	/**
+	 * Adds a number of movies equal to max length - queue.size to the end of the queue
 	 */
 	public void populateQueue() {
-		if (queue.size() > 30) return;
+		if (queue.size() > 10) return;
 		else {
-			for (int i = (50 - queue.size()); i > 0; i--) {
+			for (int i = (MAX - queue.size()); i > 0; i--) {
 				//TODO add function call to random movie generator
 			}
 		}
@@ -64,7 +75,7 @@ public class Channel {
 	 * @return name of Channel
 	 */
 	public String getName() {
-		return name;
+		return NAME;
 	}
 	
 	/**

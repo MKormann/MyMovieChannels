@@ -30,6 +30,9 @@ public class MovieSelector {
 		//TODO add database access to generate movies
 		if (genres == null) ;
 		if (actors == null) ;
+		for (int i = 0; i < N; i++) {
+			
+		}
 		return movies;
 	}
 	

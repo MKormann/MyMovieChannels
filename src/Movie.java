@@ -7,7 +7,7 @@ public class Movie {
 	
 	private final String title;
 	private final String filename;
-	private int timeAt = 0;
+	private long startTime;
 	private int length;
 	private final Genre[] genres;
 	
@@ -23,6 +23,13 @@ public class Movie {
 		this.filename= filename;
 		this.genres = genres;
 	}
+	
+	/**
+	 * Sets movie start time with current System.nanoTime()
+	 */
+	public void startMovie() {
+		startTime = System.nanoTime();
+	}
 
 	/**
 	 * 
@@ -36,15 +43,7 @@ public class Movie {
 	 * @return the runtime in seconds that movie is currently playing at
 	 */
 	public int getTimeAt() {
-		return timeAt;
-	}
-	
-	/**
-	 * 
-	 * @param the runtime in seconds that the movie is currently playing at
-	 */
-	public void setTimeAt(int timeAt) {
-		this.timeAt = timeAt;
+		return (int)((System.nanoTime() - startTime) / 1000000000);
 	}
 
 	/**

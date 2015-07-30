@@ -90,8 +90,11 @@ public class Channel {
 	 * 
 	 * @param genres list of enum type Genres
 	 */
-	public void setGenres(Genre[] genres) {
-		this.genres = genres;
+	public void setGenres(Genre[] g) {
+		genres = new Genre[g.length];
+		for (int i = 0; i < g.length; i++) {
+			genres[i] = g[i];
+		}
 	}
 	
 	/**
@@ -106,7 +109,10 @@ public class Channel {
 	 * 
 	 * @param actorIDs list of ints that correspond to actors in database
 	 */
-	public void setActors(int[] actorIDs) {
-		this.actorIDs = actorIDs;
+	public void setActors(int[] ids) {
+		actorIDs = new int[ids.length];
+		for (int i = 0; i < ids.length; i++) {
+			actorIDs[i] = ids[i];
+		}
 	}
 }

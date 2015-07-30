@@ -18,10 +18,13 @@ public class Movie {
 	 * @param length total runtime in seconds of the movie file
 	 * @param genres list of Genres applying to this movie
 	 */
-	public Movie(String title, String filename, int length, Genre[] genres) {
+	public Movie(String title, String filename, int length, Genre[] g) {
 		this.title = title;
 		this.filename= filename;
-		this.genres = genres;
+		genres = new Genre[g.length];
+		for (int i = 0; i < g.length; i++) {
+			genres[i] = g[i];
+		}
 	}
 	
 	/**

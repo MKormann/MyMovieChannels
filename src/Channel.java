@@ -14,7 +14,7 @@ public class Channel {
 	private final int MAX = 25;
 
 	private Queue<Movie> queue;
-	private final String NAME;
+	private final String name;
 	private Genre[] genres;
 	private int[] actorIDs;
 	
@@ -27,7 +27,7 @@ public class Channel {
 	 */
 	public Channel(String name) {
 		if (name == null) throw new IllegalArgumentException();
-		this.NAME = name;
+		this.name = name;
 		queue = new LinkedList<>();
 	}
 	
@@ -75,7 +75,7 @@ public class Channel {
 	 * @return name of Channel
 	 */
 	public String getName() {
-		return NAME;
+		return name;
 	}
 	
 	/**

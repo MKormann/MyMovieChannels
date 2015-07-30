@@ -15,7 +15,7 @@ public class MovieSelector {
 	
 	private static Movie createMovie() {
 		//TODO
-		return new Movie("", "", 0, null);
+		return new Movie("", "", 0, 2015, null);
 	}
 
 	/**

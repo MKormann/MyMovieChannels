@@ -7,8 +7,9 @@ public class Movie {
 	
 	private final String title;
 	private final String filename;
+	private final int year;
 	private long startTime;
-	private int length;
+	private int length; //change to final once available TODO
 	private final Genre[] genres;
 	
 	/**
@@ -18,9 +19,10 @@ public class Movie {
 	 * @param length total runtime in seconds of the movie file
 	 * @param genres list of Genres applying to this movie
 	 */
-	public Movie(String title, String filename, int length, Genre[] g) {
+	public Movie(String title, String filename, int length, int year, Genre[] g) {
 		this.title = title;
 		this.filename= filename;
+		this.year = year;
 		genres = new Genre[g.length];
 		for (int i = 0; i < g.length; i++) {
 			genres[i] = g[i];

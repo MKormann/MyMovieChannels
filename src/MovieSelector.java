@@ -13,23 +13,13 @@ public class MovieSelector {
 		
 	}
 	
-	private static Movie createMovie() {
-		//TODO
-		return new Movie("", "", 0, 2015, null);
-	}
-
 	/**
-	 * 
-	 * @param N number of movies to be generated
-	 * @param genres list of genres for movies to be chosen from
-	 * @param actors list of actors in generated movies
-	 * @return iterable list of N movies in ANY of given genres with AT LEAST one or more of given actors
+	 * Create and return a list of N MovieInstances
+	 * @param N number of Instances to be created
+	 * @return list of Instances
 	 */
-	public static Iterable<Movie> createMovieList(int N, Genre[] genres, int[] actors) {
-		ArrayList<Movie> movies = new ArrayList<>();
-		//TODO add database access to generate movies
-		if (genres == null) ;
-		if (actors == null) ;
+	public Iterable<MovieInstance> getMovies(int N) {
+		ArrayList<MovieInstance> movies = new ArrayList<>();
 		for (int i = 0; i < N; i++) {
 			
 		}
@@ -38,10 +28,41 @@ public class MovieSelector {
 	
 	/**
 	 * 
-	 * @param N number of movies to be generated
-	 * @return calls method to return iterable list of N movies with no genre or actor filters
+	 * @param genres list of genres for movies to be chosen from
+	 * @param actors list of actors in generated movies
+	 * @return iterable list of movies in ANY of given genres with AT LEAST one or more of given actors
 	 */
-	public static Iterable<Movie> createMovieList(int N) {
-		return createMovieList(N, null, null);
+	public Iterable<Movie> createMoviePool(Genre[] genres, int[] actors) {
+		ArrayList<Movie> movies = new ArrayList<>();
+		//TODO add database access to generate movies
+		if (genres == null) ;
+		if (actors == null) ;
+		return movies;
+	}
+	
+	/**
+	 * 
+	 * @param genres list of genres for movies to be chosen from
+	 * @return iterable list of movies in ANY of given genres
+	 */
+	public Iterable<Movie> createMoviePool(Genre[] genres) {
+		return createMoviePool(genres, null);
+	}
+	
+	/**
+	 * 
+	 * @param actors list of actors in generated movies
+	 * @return iterable list of movies including AT LEAST one or more of the given actors
+	 */
+	public Iterable<Movie> createMoviePool(int[] actors) {
+		return createMoviePool(null, actors);
+	}
+	
+	/**
+	 * 
+	 * @return calls method to return iterable list of movies with no genre or actor filters
+	 */
+	public Iterable<Movie> createMoviePool() {
+		return createMoviePool(null, null);
 	}
 }

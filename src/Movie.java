@@ -8,7 +8,6 @@ public class Movie {
 	private final String title;
 	private final String filename;
 	private final int year;
-	private long startTime;
 	private int length; //change to final once available TODO
 	private final Genre[] genres;
 	
@@ -28,13 +27,6 @@ public class Movie {
 			genres[i] = g[i];
 		}
 	}
-	
-	/**
-	 * Sets movie start time with current System.nanoTime()
-	 */
-	public void startMovie() {
-		startTime = System.nanoTime();
-	}
 
 	/**
 	 * 
@@ -42,13 +34,6 @@ public class Movie {
 	 */
 	public String getTitle() {
 		return title;
-	}
-
-	/**
-	 * @return the runtime in seconds that movie is currently playing at
-	 */
-	public int getTimeAt() {
-		return (int)((System.nanoTime() - startTime) / 1000000000);
 	}
 
 	/**
@@ -65,5 +50,13 @@ public class Movie {
 	 */
 	public String getFilename() {
 		return filename;
+	}
+	
+	/**
+	 * 
+	 * @return length of movie in seconds
+	 */
+	public int getLength() {
+		return length;
 	}
 }

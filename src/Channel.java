@@ -11,9 +11,9 @@ import java.util.Queue;
  */
 public class Channel {
 	
-	private final int MAX = 25;
+	private final static int MAX = 25;
 
-	private Queue<Movie> queue;
+	private Queue<MovieInstance> queue;
 	private final String name;
 	private Genre[] genres;
 	private int[] actorIDs;
@@ -35,7 +35,7 @@ public class Channel {
 	 * Retrieve the currently playing movie
 	 * @return the first item in the movie queue
 	 */
-	public Movie getCurrentMovie() {
+	public MovieInstance getCurrentMovie() {
 		return queue.peek();
 	}
 	
@@ -43,7 +43,7 @@ public class Channel {
 	 * Add a movie
 	 * @param movie to be added to end of queue
 	 */
-	public void addMovie(Movie movie) {
+	public void addMovie(MovieInstance movie) {
 		if (movie == null) return;
 		queue.add(movie);
 	}
@@ -91,6 +91,7 @@ public class Channel {
 	 * @param genres list of enum type Genres
 	 */
 	public void setGenres(Genre[] g) {
+		if (g == null) return;
 		genres = new Genre[g.length];
 		for (int i = 0; i < g.length; i++) {
 			genres[i] = g[i];
@@ -110,6 +111,7 @@ public class Channel {
 	 * @param actorIDs list of ints that correspond to actors in database
 	 */
 	public void setActors(int[] ids) {
+		if (ids == null) return;
 		actorIDs = new int[ids.length];
 		for (int i = 0; i < ids.length; i++) {
 			actorIDs[i] = ids[i];

@@ -1,3 +1,5 @@
+import java.nio.file.Path;
+
 /**
  * An object representing a single instance of a movie file in the program
  * 
@@ -6,7 +8,7 @@
 public class Movie {
 	
 	private final String title;
-	private final String filename;
+	private final Path filename;
 	private final int year;
 	private int length; //change to final once available TODO
 	private final Genre[] genres;
@@ -18,7 +20,7 @@ public class Movie {
 	 * @param length total runtime in seconds of the movie file
 	 * @param genres list of Genres applying to this movie
 	 */
-	public Movie(String title, String filename, int length, int year, Genre[] g) {
+	public Movie(String title, Path filename, int length, int year, Genre[] g) {
 		this.title = title;
 		this.filename= filename;
 		this.year = year;
@@ -48,7 +50,7 @@ public class Movie {
 	 * 
 	 * @return the file location of the Movie
 	 */
-	public String getFilename() {
+	public Path getFilename() {
 		return filename;
 	}
 	

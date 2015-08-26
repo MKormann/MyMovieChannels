@@ -29,6 +29,17 @@ public class Movie {
 			genres[i] = g[i];
 		}
 	}
+	
+	/**
+	 * Initializes a Movie object without any extra data, setting title to the default file name, length to 0, and genres empty
+	 * @param file location of the movie
+	 */
+	public Movie(Path filename) {
+		this.filename = filename;
+		title = filename.getFileName().toString();
+		length = 0;
+		genres = new Genre[0];
+	}
 
 	/**
 	 * 

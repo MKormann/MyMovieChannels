@@ -7,11 +7,11 @@ import java.nio.file.Path;
  */
 public class Movie {
 	
-	private final String title;
 	private final Path filename;
-	private final int year;
 	private int length; //change to final once available TODO
-	private final Genre[] genres;
+	private String title;
+	private int year;
+	private Genre[] genres;
 	
 	/**
 	 * Initializes a Movie object taking in the title, file location, length of movie, and a list of Genres
@@ -60,5 +60,29 @@ public class Movie {
 	 */
 	public int getLength() {
 		return length;
+	}
+	
+	/**
+	 * 
+	 * @param New title of movie
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * 
+	 * @param Year of movie
+	 */
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	/**
+	 * 
+	 * @param Array of genres to be applied to movie
+	 */
+	public void setGenres(Genre[] genres) {
+		this.genres = genres;
 	}
 }

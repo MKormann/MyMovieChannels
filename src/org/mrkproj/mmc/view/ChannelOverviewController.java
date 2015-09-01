@@ -1,6 +1,6 @@
 package org.mrkproj.mmc.view;
 
-import org.mrkproj.mmc.MmcApp;
+import org.mrkproj.mmc.MainApp;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,14 +11,14 @@ public class ChannelOverviewController {
 	private Label userChannels;
 	
 	//Reference to main application
-	private MmcApp mmcApp;
+	private MainApp mainApp;
 	
 	@FXML
 	private void initialize() {
 		
 	}
 	
-	public void setMainApp(MmcApp mmcApp) {
-		this.mmcApp = mmcApp;
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 }

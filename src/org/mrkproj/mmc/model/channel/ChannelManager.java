@@ -1,3 +1,4 @@
+package org.mrkproj.mmc.model.channel;
 import java.util.ArrayList;
 
 /**

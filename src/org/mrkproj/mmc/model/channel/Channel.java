@@ -1,5 +1,9 @@
+package org.mrkproj.mmc.model.channel;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import org.mrkproj.mmc.model.Genre;
+import org.mrkproj.mmc.model.movie.MovieInstance;
 
 /**
  * An object representing a "channel" of movies.

@@ -1,3 +1,4 @@
+package org.mrkproj.mmc.model;
 
 public enum Genre {
 	

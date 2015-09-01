@@ -1,3 +1,4 @@
+package org.mrkproj.mmc.model.movie;
 /**
  * Class to represent a single play of a Movie.
  * Contains a private final reference to a Movie object, as well as a start time for the movie and

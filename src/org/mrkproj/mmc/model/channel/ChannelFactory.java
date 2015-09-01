@@ -1,3 +1,7 @@
+package org.mrkproj.mmc.model.channel;
+
+import org.mrkproj.mmc.model.Genre;
+
 /**
  * Class used to create channels given a certain number of criteria.
  * 

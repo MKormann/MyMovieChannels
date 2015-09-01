@@ -1,4 +1,7 @@
+package org.mrkproj.mmc.model.movie;
 import java.util.ArrayList;
+
+import org.mrkproj.mmc.model.Genre;
 
 /**
  * Class used to select and create a Movie object based on a certain set of criteria and filters

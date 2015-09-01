@@ -1,4 +1,7 @@
+package org.mrkproj.mmc.model.movie;
 import java.nio.file.Path;
+
+import org.mrkproj.mmc.model.Genre;
 
 /**
  * An object representing a single instance of a movie file in the program

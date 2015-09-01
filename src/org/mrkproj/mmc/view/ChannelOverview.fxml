@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+   <children>
+      <Label layoutX="383.0" layoutY="14.0" text="Label" AnchorPane.topAnchor="15.0" />
+      <TableView layoutX="10.0" layoutY="51.0" prefHeight="363.0" prefWidth="780.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="51.0">
+        <columns>
+          <TableColumn prefWidth="149.0" text="Channel" />
+          <TableColumn prefWidth="257.0" text="Now Playing" />
+            <TableColumn minWidth="0.0" prefWidth="117.0" text="Time" />
+            <TableColumn prefWidth="256.0" text="Coming Up" />
+        </columns>
+      </TableView>
+      <ButtonBar buttonMinWidth="100.0" layoutX="368.0" layoutY="424.0" prefHeight="62.0" prefWidth="417.0" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="15.0">
+        <buttons>
+          <Button mnemonicParsing="false" text="Add Channel" />
+            <Button mnemonicParsing="false" text="Edit Channel" />
+            <Button mnemonicParsing="false" text="Delete Channel" />
+        </buttons>
+      </ButtonBar>
+      <Button layoutX="218.0" layoutY="440.0" mnemonicParsing="false" prefWidth="150.0" text="PLAY" />
+      <Button layoutX="29.0" layoutY="440.0" mnemonicParsing="false" prefWidth="150.0" text="Video Library" />
+   </children>
+</AnchorPane>

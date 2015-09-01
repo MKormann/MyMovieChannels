@@ -14,7 +14,7 @@ public class MovieFactory {
 	}
 	
 	/**
-	 * create new array of movies
+	 * Create new array of movies
 	 */
 	public void createMoviePool() {
 		

@@ -7,25 +7,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
-   <children>
-      <Label layoutX="383.0" layoutY="14.0" text="Label" AnchorPane.topAnchor="15.0" />
-      <TableView layoutX="10.0" layoutY="51.0" prefHeight="363.0" prefWidth="780.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="51.0">
-        <columns>
-          <TableColumn prefWidth="149.0" text="Channel" />
-          <TableColumn prefWidth="257.0" text="Now Playing" />
-            <TableColumn minWidth="0.0" prefWidth="117.0" text="Time" />
-            <TableColumn prefWidth="256.0" text="Coming Up" />
-        </columns>
-      </TableView>
-      <ButtonBar buttonMinWidth="100.0" layoutX="368.0" layoutY="424.0" prefHeight="62.0" prefWidth="417.0" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="15.0">
-        <buttons>
-          <Button mnemonicParsing="false" text="Add Channel" />
-            <Button mnemonicParsing="false" text="Edit Channel" />
-            <Button mnemonicParsing="false" text="Delete Channel" />
-        </buttons>
-      </ButtonBar>
-      <Button layoutX="218.0" layoutY="440.0" mnemonicParsing="false" prefWidth="150.0" text="PLAY" />
-      <Button layoutX="29.0" layoutY="440.0" mnemonicParsing="false" prefWidth="150.0" text="Video Library" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true">
+         <content>
+            <TableView prefHeight="363.0" prefWidth="780.0">
+              <columns>
+                <TableColumn prefWidth="149.0" text="Channel" />
+                <TableColumn prefWidth="257.0" text="Now Playing" />
+                  <TableColumn minWidth="0.0" prefWidth="117.0" text="Time" />
+                  <TableColumn prefWidth="256.0" text="Coming Up" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <Label text="Label" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ButtonBar buttonMinWidth="100.0" prefHeight="62.0" prefWidth="417.0" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="15.0">
+              <buttons>
+                <Button mnemonicParsing="false" text="Add Channel" />
+                  <Button mnemonicParsing="false" text="Edit Channel" />
+                  <Button mnemonicParsing="false" text="Delete Channel" />
+              </buttons>
+            </ButtonBar>
+            <Button layoutX="32.0" layoutY="16.0" mnemonicParsing="false" prefWidth="150.0" text="Video Library" />
+            <Button layoutX="218.0" layoutY="16.0" mnemonicParsing="false" prefWidth="150.0" text="PLAY" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

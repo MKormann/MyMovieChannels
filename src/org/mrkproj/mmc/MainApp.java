@@ -1,15 +1,19 @@
 package org.mrkproj.mmc;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
+import org.mrkproj.mmc.model.channel.Channel;
+import org.mrkproj.mmc.model.movie.Movie;
 import org.mrkproj.mmc.view.ChannelOverviewController;
 import org.mrkproj.mmc.view.LibraryOverviewController;
 import org.mrkproj.mmc.view.RootLayoutController;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -23,6 +27,9 @@ public class MainApp extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	
+	private ObservableList<Movie> movies;
+	private ObservableList<Channel> channels;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -31,7 +38,7 @@ public class MainApp extends Application {
 		
 		initRoot();
 		
-		displayChannels();
+		displayLibrary();
 	}
 	
 	public void initRoot() {
@@ -56,7 +63,7 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ChannelOverview.fxml"));
-			AnchorPane pane = (AnchorPane)loader.load();
+			BorderPane pane = (BorderPane)loader.load();
 			
 			rootLayout.setCenter(pane);
 			
@@ -72,7 +79,7 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/LibraryOverview.fxml"));
-			AnchorPane pane = (AnchorPane)loader.load();
+			BorderPane pane = (BorderPane)loader.load();
 			
 			rootLayout.setCenter(pane);
 			
@@ -80,6 +87,25 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace(); //TODO
+		}
+	}
+	
+	public File getPersonFilePath() {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		String filePath = prefs.get("filePath", null);
+		if (filePath != null) {
+			return new File(filePath);
+		} else {
+			return null;
+		}
+	}
+	
+	public void setPersonFilePath(File file) {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		if (file != null) {
+			prefs.put("filePath", file.getPath());
+		} else {
+			prefs.remove("filePath");
 		}
 	}
 

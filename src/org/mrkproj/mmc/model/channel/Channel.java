@@ -20,7 +20,7 @@ public class Channel {
 	private Queue<MovieInstance> queue;
 	private final String name;
 	private Genre[] genres;
-	private int[] actorIDs;
+	private String[] actors;
 	
 	
 	/**
@@ -104,21 +104,21 @@ public class Channel {
 	
 	/**
 	 * 
-	 * @return actorIDs list of actor ids for this channel
+	 * @return String list of actors for this channel
 	 */
-	public int[] getActors() {
-		return actorIDs;
+	public String[] getActors() {
+		return actors;
 	}
 	
 	/**
 	 * 
-	 * @param actorIDs list of ints that correspond to actors in database
+	 * @param actors list that corresponds to actors in database
 	 */
-	public void setActors(int[] ids) {
+	public void setActors(String[] ids) {
 		if (ids == null) return;
-		actorIDs = new int[ids.length];
+		actors = new String[ids.length];
 		for (int i = 0; i < ids.length; i++) {
-			actorIDs[i] = ids[i];
+			actors[i] = ids[i];
 		}
 	}
 }

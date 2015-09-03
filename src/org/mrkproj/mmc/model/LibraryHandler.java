@@ -1,4 +1,5 @@
 package org.mrkproj.mmc.model;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -6,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
 
 /**
@@ -19,6 +23,20 @@ public class LibraryHandler {
 
 	public LibraryHandler() {
 		
+	}
+	
+	public static void loadLibraryFromFile(File file) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(LibraryWrapper.class);
+			Unmarshaller um = context.createUnmarshaller();
+			
+			LibraryWrapper wrapper = (LibraryWrapper)um.unmarshal(file);
+			
+			
+			
+		} catch (Exception e) {
+			
+		}
 	}
 	
 	/**

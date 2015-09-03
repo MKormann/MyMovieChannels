@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true">
          <content>
-            <TableView prefHeight="363.0" prefWidth="780.0">
+            <TableView fx:id="channelTable" prefHeight="363.0" prefWidth="780.0">
               <columns>
                 <TableColumn prefWidth="149.0" text="Channel" />
                 <TableColumn prefWidth="257.0" text="Now Playing" />
@@ -26,7 +25,7 @@
       </ScrollPane>
    </center>
    <top>
-      <Label text="Label" BorderPane.alignment="CENTER" />
+      <Label fx:id="channelLabel" text="Label" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
       <AnchorPane prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">

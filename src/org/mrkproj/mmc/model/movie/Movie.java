@@ -1,6 +1,8 @@
 package org.mrkproj.mmc.model.movie;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mrkproj.mmc.model.Genre;
 
@@ -22,7 +24,7 @@ public class Movie {
 	private final StringProperty title;
 	private final IntegerProperty year;
 	private final IntegerProperty length; //change to final once available TODO
-	private final ObjectProperty<Genre[]> genres;
+	private final ObjectProperty<List<Genre>> genres;
 	
 	/**
 	 * Initializes a Movie object taking in the title, file location, length of movie, and a list of Genres
@@ -31,15 +33,13 @@ public class Movie {
 	 * @param length total runtime in seconds of the movie file
 	 * @param genres list of Genres applying to this movie
 	 */
-	public Movie(Path filename, String title, int length, int year, Genre[] g) {
+	public Movie(Path filename, String title, int length, int year, List<Genre> g) {
 		this.filename = new SimpleObjectProperty<>(filename);
 		this.title = new SimpleStringProperty(title);
 		this.length = new SimpleIntegerProperty(length);
 		this.year = new SimpleIntegerProperty(year);
-		Genre[] temp = new Genre[g.length];
-		for (int i = 0; i < g.length; i++) {
-			temp[i] = g[i];
-		}
+		ArrayList<Genre> temp = new ArrayList<>();
+		temp.addAll(g);
 		this.genres = new SimpleObjectProperty<>(temp);
 	}
 	
@@ -48,7 +48,7 @@ public class Movie {
 	 * @param file location of the movie
 	 */
 	public Movie(Path filename) {
-		this(filename, filename.getFileName().toString(), 0, LocalDateTime.now().getYear(), new Genre[0]);
+		this(filename, filename.getFileName().toString(), 0, LocalDateTime.now().getYear(), new ArrayList<>());
 	}
 
 	public String getTitle() {
@@ -59,11 +59,11 @@ public class Movie {
 		return title;
 	}
 
-	public Genre[] getGenres() {
+	public List<Genre> getGenres() {
 		return genres.get();
 	}
 	
-	public ObjectProperty<Genre[]> getGenreProperty() {
+	public ObjectProperty<List<Genre>> getGenreProperty() {
 		return genres;
 	}
 
@@ -99,7 +99,7 @@ public class Movie {
 		this.year.set(year);
 	}
 
-	public void setGenres(Genre[] genres) {
+	public void setGenres(List<Genre> genres) {
 		this.genres.set(genres);
 	}
 }

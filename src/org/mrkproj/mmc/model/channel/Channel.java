@@ -1,5 +1,7 @@
 package org.mrkproj.mmc.model.channel;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import org.mrkproj.mmc.model.Genre;
@@ -25,8 +27,8 @@ public class Channel {
 	private final StringProperty channelName;
 	private final StringProperty currentMovie;
 	private final StringProperty nextMovie;
-	private final ObjectProperty<Genre[]> genres;
-	private final ObjectProperty<String[]> actors;
+	private final ObjectProperty<List<Genre>> genres;
+	private final ObjectProperty<List<String>> actors;
 
 	private Queue<MovieInstance> queue;
 	
@@ -108,40 +110,36 @@ public class Channel {
 		return nextMovie;
 	}
 	
-	public Genre[] getGenres() {
+	public List<Genre> getGenres() {
 		return genres.get();
 	}
 	
-	public ObjectProperty<Genre[]> getGenreProperty() {
+	public ObjectProperty<List<Genre>> getGenreProperty() {
 		return genres;
 	}
 	
-	public void setGenres(Genre[] g) {
-		if (g == null) genres.set(null);
+	public void setGenres(List<Genre> g) {
+		if (g == null) genres.set(new ArrayList<Genre>());
 		else {
-			Genre[] temp = new Genre[g.length];
-			for (int i = 0; i < g.length; i++) {
-				temp[i] = g[i];
-			}
+			ArrayList<Genre> temp = new ArrayList<>();
+			temp.addAll(g);
 			genres.set(temp);
 		}
 	}
 	
-	public String[] getActors() {
+	public List<String> getActors() {
 		return actors.get();
 	}
 	
-	public ObjectProperty<String[]> getActorProperty() {
+	public ObjectProperty<List<String>> getActorProperty() {
 		return actors;
 	}
 	
-	public void setActors(String[] a) {
-		if (a == null) actors.set(null);
+	public void setActors(List<String> a) {
+		if (a == null) actors.set(new ArrayList<String>());
 		else {
-			String[] temp = new String[a.length];
-			for (int i = 0; i < a.length; i++) {
-				temp[i] = a[i];
-			}
+			ArrayList<String> temp = new ArrayList<>();
+			temp.addAll(a);
 			actors.set(temp);
 		}
 	}

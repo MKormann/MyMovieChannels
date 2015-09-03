@@ -1,5 +1,6 @@
 package org.mrkproj.mmc.model.movie;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mrkproj.mmc.model.Genre;
 
@@ -35,7 +36,7 @@ public class MovieSelector {
 	 * @param actors list of actors in generated movies
 	 * @return iterable list of movies in ANY of given genres with AT LEAST one or more of given actors
 	 */
-	public Iterable<Movie> createMoviePool(Genre[] genres, String[] actors) {
+	public Iterable<Movie> createMoviePool(List<Genre> genres, String[] actors) {
 		ArrayList<Movie> movies = new ArrayList<>();
 		//TODO add database access to generate movies
 		if (genres == null) ;
@@ -48,7 +49,7 @@ public class MovieSelector {
 	 * @param genres list of genres for movies to be chosen from
 	 * @return iterable list of movies in ANY of given genres
 	 */
-	public Iterable<Movie> createMoviePool(Genre[] genres) {
+	public Iterable<Movie> createMoviePool(List<Genre> genres) {
 		return createMoviePool(genres, null);
 	}
 	

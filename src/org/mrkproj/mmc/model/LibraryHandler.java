@@ -1,15 +1,15 @@
 package org.mrkproj.mmc.model;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.file.Path;
+import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import org.mrkproj.mmc.MainApp;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 /**
@@ -20,84 +20,63 @@ import javax.xml.bind.Unmarshaller;
  */
 
 public class LibraryHandler {
-
+	
 	public LibraryHandler() {
 		
 	}
+
+	public static File getFilePath() {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		String filePath = prefs.get("filePath", null);
+		if (filePath != null) {
+			return new File(filePath);
+		} else {
+			return null;
+		}
+	}
 	
-	public static void loadLibraryFromFile(File file) {
+	public static void setFilePath(File file) {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		if (file != null) {
+			prefs.put("filePath", file.getPath());
+		} else {
+			prefs.remove("filePath");
+		}
+	}	 
+	
+	public static LibraryWrapper loadLibraryFromFile(File file) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(LibraryWrapper.class);
 			Unmarshaller um = context.createUnmarshaller();
-			
 			LibraryWrapper wrapper = (LibraryWrapper)um.unmarshal(file);
+			setFilePath(file);
+			return wrapper;
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Save error");
+			alert.setHeaderText("Unable to save data");
+			alert.setContentText("Unable to save data to file:\n" + file.getPath());
 			
+			alert.showAndWait(); 
+			return null;
+		}
+	}
+	
+	public static void saveLibraryToFile(File file, LibraryWrapper wrapper) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(LibraryWrapper.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
+			m.marshal(wrapper, file);
 			
 		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Save error");
+			alert.setHeaderText("Unable to save data");
+			alert.setContentText("Unable to save data to file:\n" + file.getPath());
 			
+			alert.showAndWait(); 
 		}
-	}
-	
-	/**
-	 * Save given array of Paths to disk under the given filename.
-	 * 
-	 * @param filename name of file to store path[] under
-	 * @param library array of Paths referring to user's library
-	 * @throws IOException
-	 */
-	public static void saveLibrary(String filename, Path[] library) throws IOException {
-		ObjectOutputStream oos = null;
-		try {
-			oos = new ObjectOutputStream(new FileOutputStream(filename));
-			oos.writeObject(library);
-		}
-		catch (IOException ioe) {
-			//TODO
-			System.err.println("Could not save library to disk.");
-		}
-		finally {
-			if (oos != null) {
-				oos.close();
-			}
-		}
-	}
-	
-	/**
-	 * Loads a user's library from disk from the given filename.
-	 * 
-	 * @param filename File to be loaded
-	 * @return an array of Paths referring to user's library
-	 * @throws IOException
-	 */
-	public static Path[] loadLibrary(String filename) throws IOException {
-		ObjectInputStream ois = null;
-		Path[] library = null;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(filename));
-			library = (Path[])ois.readObject();
-		}
-		catch (FileNotFoundException e) {
-			//TODO
-			System.err.println("Library with given name does not exist.");
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			//TODO
-			System.err.println("Could not load library from disk.");
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e) {
-			//TODO
-			System.err.println("No such class found.");
-			e.printStackTrace();
-		}
-		finally {
-			if (ois != null) {
-				ois.close();
-			}
-		}
-		return library;
-	}
-	
+	}	
 }

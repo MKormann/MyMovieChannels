@@ -2,8 +2,9 @@ package org.mrkproj.mmc;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
+import org.mrkproj.mmc.model.LibraryHandler;
+import org.mrkproj.mmc.model.LibraryWrapper;
 import org.mrkproj.mmc.model.channel.Channel;
 import org.mrkproj.mmc.model.movie.Movie;
 import org.mrkproj.mmc.view.ChannelOverviewController;
@@ -11,6 +12,7 @@ import org.mrkproj.mmc.view.LibraryOverviewController;
 import org.mrkproj.mmc.view.RootLayoutController;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,13 +30,20 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	
-	private ObservableList<Movie> movies;
-	private ObservableList<Channel> channels;
+	private ObservableList<Movie> movies = FXCollections.observableArrayList();
+	private ObservableList<Channel> channels = FXCollections.observableArrayList();
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("My Movie Channels");
+		
+		File file = LibraryHandler.getFilePath();
+		if (file != null) {
+			LibraryWrapper wrapper = LibraryHandler.loadLibraryFromFile(file);
+			movies.addAll(wrapper.getMovies());
+			channels.addAll(wrapper.getChannels());
+		}
 		
 		initRoot();
 		
@@ -87,25 +96,6 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace(); //TODO
-		}
-	}
-	
-	public File getPersonFilePath() {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get("filePath", null);
-		if (filePath != null) {
-			return new File(filePath);
-		} else {
-			return null;
-		}
-	}
-	
-	public void setPersonFilePath(File file) {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		if (file != null) {
-			prefs.put("filePath", file.getPath());
-		} else {
-			prefs.remove("filePath");
 		}
 	}
 

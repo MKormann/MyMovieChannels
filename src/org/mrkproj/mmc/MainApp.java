@@ -98,6 +98,10 @@ public class MainApp extends Application {
 			e.printStackTrace(); //TODO
 		}
 	}
+	
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
 
 	public static void main(String[] args) {
 		launch(args);

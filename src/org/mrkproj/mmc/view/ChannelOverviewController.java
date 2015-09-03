@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 public class ChannelOverviewController {
 
 	@FXML
-	private Label userChannels;
+	private Label channelLabel;
 	
 	//Reference to main application
 	private MainApp mainApp;

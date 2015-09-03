@@ -49,4 +49,9 @@ public class MovieInstance {
 		}
 		return false;
 	}
+	
+	public String toString() {
+		return movie.getTitle();
+				
+	}
 }

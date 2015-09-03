@@ -5,6 +5,11 @@ import java.util.Queue;
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.model.movie.MovieInstance;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * An object representing a "channel" of movies.
  * Holds a queue of Movie objects in an order representative of a playlist, and can
@@ -17,21 +22,26 @@ public class Channel {
 	
 	private final static int MAX = 25;
 
+	private final StringProperty channelName;
+	private final StringProperty currentMovie;
+	private final StringProperty nextMovie;
+	private final ObjectProperty<Genre[]> genres;
+	private final ObjectProperty<String[]> actors;
+
 	private Queue<MovieInstance> queue;
-	private final String name;
-	private Genre[] genres;
-	private String[] actors;
-	
 	
 	/**
 	 * Constructs an object of type Channel with the given name.
 	 * Adds no movie genre or actor filters.
-	 * @param name the displayed name of the Channel
+	 * @param channelName the displayed name of the Channel
 	 * @throws IllegalArgumentException if no name provided
 	 */
-	public Channel(String name) {
-		if (name == null) throw new IllegalArgumentException();
-		this.name = name;
+	public Channel(String channelName) {
+		this.channelName = new SimpleStringProperty(channelName);
+		this.currentMovie = new SimpleStringProperty();
+		this.nextMovie = new SimpleStringProperty();
+		this.genres = new SimpleObjectProperty<>();
+		this.actors = new SimpleObjectProperty<>();
 		queue = new LinkedList<>();
 	}
 	
@@ -57,6 +67,7 @@ public class Channel {
 	 */
 	private void startNextMovie() {
 		queue.remove();
+		currentMovie.set(queue.peek().toString());
 		queue.peek().startMovie();
 	}
 	
@@ -72,53 +83,46 @@ public class Channel {
 		}
 	}
 	
-	//Getters and setters below
 	
-	/**
-	 * 
-	 * @return name of Channel
-	 */
-	public String getName() {
-		return name;
+	public String getChannelName() {
+		return channelName.get();
 	}
 	
-	/**
-	 * 
-	 * @return list of Genres for this channel
-	 */
+	public String getCurrentMovieName() {
+		return currentMovie.get();
+	}
+	
+	public String getNextMovieName() {
+		return nextMovie.get();
+	}
+	
 	public Genre[] getGenres() {
-		return genres;
+		return genres.get();
 	}
 	
-	/**
-	 * 
-	 * @param genres list of enum type Genres
-	 */
 	public void setGenres(Genre[] g) {
-		if (g == null) return;
-		genres = new Genre[g.length];
-		for (int i = 0; i < g.length; i++) {
-			genres[i] = g[i];
+		if (g == null) genres.set(null);
+		else {
+			Genre[] temp = new Genre[g.length];
+			for (int i = 0; i < g.length; i++) {
+				temp[i] = g[i];
+			}
+			genres.set(temp);
 		}
 	}
 	
-	/**
-	 * 
-	 * @return String list of actors for this channel
-	 */
 	public String[] getActors() {
-		return actors;
+		return actors.get();
 	}
 	
-	/**
-	 * 
-	 * @param actors list that corresponds to actors in database
-	 */
-	public void setActors(String[] ids) {
-		if (ids == null) return;
-		actors = new String[ids.length];
-		for (int i = 0; i < ids.length; i++) {
-			actors[i] = ids[i];
+	public void setActors(String[] a) {
+		if (a == null) actors.set(null);
+		else {
+			String[] temp = new String[a.length];
+			for (int i = 0; i < a.length; i++) {
+				temp[i] = a[i];
+			}
+			actors.set(temp);
 		}
 	}
 }

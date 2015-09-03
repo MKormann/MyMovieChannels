@@ -36,7 +36,7 @@ public class MovieSelector {
 	 * @param actors list of actors in generated movies
 	 * @return iterable list of movies in ANY of given genres with AT LEAST one or more of given actors
 	 */
-	public Iterable<Movie> createMoviePool(List<Genre> genres, String[] actors) {
+	public Iterable<Movie> createMoviePool(List<Genre> genres, List<String> actors) {
 		ArrayList<Movie> movies = new ArrayList<>();
 		//TODO add database access to generate movies
 		if (genres == null) ;
@@ -49,7 +49,7 @@ public class MovieSelector {
 	 * @param genres list of genres for movies to be chosen from
 	 * @return iterable list of movies in ANY of given genres
 	 */
-	public Iterable<Movie> createMoviePool(List<Genre> genres) {
+	public Iterable<Movie> createMovieGenrePool(List<Genre> genres) {
 		return createMoviePool(genres, null);
 	}
 	
@@ -58,7 +58,7 @@ public class MovieSelector {
 	 * @param actors list of actors in generated movies
 	 * @return iterable list of movies including AT LEAST one or more of the given actors
 	 */
-	public Iterable<Movie> createMoviePool(String[] actors) {
+	public Iterable<Movie> createMovieActorPool(List<String> actors) {
 		return createMoviePool(null, actors);
 	}
 	

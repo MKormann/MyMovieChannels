@@ -25,6 +25,7 @@ public class Movie {
 	private final IntegerProperty year;
 	private final IntegerProperty length; //change to final once available TODO
 	private final ObjectProperty<List<Genre>> genres;
+	private final ObjectProperty<List<String>> actors;
 	
 	/**
 	 * Initializes a Movie object taking in the title, file location, length of movie, and a list of Genres
@@ -33,14 +34,17 @@ public class Movie {
 	 * @param length total runtime in seconds of the movie file
 	 * @param genres list of Genres applying to this movie
 	 */
-	public Movie(Path filename, String title, int length, int year, List<Genre> g) {
+	public Movie(Path filename, String title, int length, int year, List<Genre> g, List<String> a) {
 		this.filename = new SimpleObjectProperty<>(filename);
 		this.title = new SimpleStringProperty(title);
 		this.length = new SimpleIntegerProperty(length);
 		this.year = new SimpleIntegerProperty(year);
 		ArrayList<Genre> temp = new ArrayList<>();
 		temp.addAll(g);
+		ArrayList<String> temp2 = new ArrayList<>();
+		temp2.addAll(a);
 		this.genres = new SimpleObjectProperty<>(temp);
+		this.actors = new SimpleObjectProperty<>(temp2);
 	}
 	
 	/**
@@ -48,7 +52,8 @@ public class Movie {
 	 * @param file location of the movie
 	 */
 	public Movie(Path filename) {
-		this(filename, filename.getFileName().toString(), 0, LocalDateTime.now().getYear(), new ArrayList<>());
+		this(filename, filename.getFileName().toString(), 0, LocalDateTime.now().getYear(), 
+				new ArrayList<>(), new ArrayList<>());
 	}
 
 	public String getTitle() {
@@ -65,6 +70,14 @@ public class Movie {
 	
 	public ObjectProperty<List<Genre>> getGenreProperty() {
 		return genres;
+	}
+	
+	public List<String> getActors() {
+		return actors.get();
+	}
+	
+	public ObjectProperty<List<String>> getActorProperty() {
+		return actors;
 	}
 
 	public Path getFilename() {
@@ -101,5 +114,9 @@ public class Movie {
 
 	public void setGenres(List<Genre> genres) {
 		this.genres.set(genres);
+	}
+	
+	public void setActors(List<String> actors) {
+		this.actors.set(actors);
 	}
 }

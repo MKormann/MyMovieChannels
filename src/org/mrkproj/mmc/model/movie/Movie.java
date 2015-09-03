@@ -54,17 +54,41 @@ public class Movie {
 	public String getTitle() {
 		return title.get();
 	}
+	
+	public StringProperty getTitleProperty() {
+		return title;
+	}
 
 	public Genre[] getGenres() {
 		return genres.get();
+	}
+	
+	public ObjectProperty<Genre[]> getGenreProperty() {
+		return genres;
 	}
 
 	public Path getFilename() {
 		return filename.get();
 	}
 	
+	public ObjectProperty<Path> getPathProperty() {
+		return filename;
+	}
+	
 	public int getLength() {
 		return length.get();
+	}
+	
+	public IntegerProperty getLengthProperty() {
+		return length;
+	}
+	
+	public int getYear() {
+		return year.get();
+	}
+	
+	public IntegerProperty getYearProperty() {
+		return year;
 	}
 	
 	public void setTitle(String title) {

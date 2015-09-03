@@ -88,16 +88,32 @@ public class Channel {
 		return channelName.get();
 	}
 	
+	public StringProperty getChannelNameProperty() {
+		return channelName;
+	}
+	
 	public String getCurrentMovieName() {
 		return currentMovie.get();
+	}
+
+	public StringProperty getCurrentMovieProperty() {
+		return currentMovie;
 	}
 	
 	public String getNextMovieName() {
 		return nextMovie.get();
 	}
+
+	public StringProperty getNextMovieProperty() {
+		return nextMovie;
+	}
 	
 	public Genre[] getGenres() {
 		return genres.get();
+	}
+	
+	public ObjectProperty<Genre[]> getGenreProperty() {
+		return genres;
 	}
 	
 	public void setGenres(Genre[] g) {
@@ -113,6 +129,10 @@ public class Channel {
 	
 	public String[] getActors() {
 		return actors.get();
+	}
+	
+	public ObjectProperty<String[]> getActorProperty() {
+		return actors;
 	}
 	
 	public void setActors(String[] a) {

@@ -4,6 +4,7 @@ import org.mrkproj.mmc.MainApp;
 import org.mrkproj.mmc.model.channel.Channel;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,6 +28,10 @@ public class ChannelOverviewController {
 	
 	@FXML
 	private void initialize() {
+		channelColumn.setCellValueFactory(data -> data.getValue().getChannelNameProperty());
+		currentMovieColumn.setCellValueFactory(data -> data.getValue().getCurrentMovieProperty());
+		//timeColumn.setCellValueFactory(data -> data.getValue().get);
+		nextMovieColumn.setCellValueFactory(data -> data.getValue().getNextMovieProperty());
 		
 	}
 	
@@ -57,7 +62,14 @@ public class ChannelOverviewController {
 	 */
 	@FXML
 	public void createChannel() {
-		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/CreateChannel.fxml"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			//TODO
+		}
 	}
 	
 	/**

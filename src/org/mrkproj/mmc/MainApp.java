@@ -2,8 +2,8 @@ package org.mrkproj.mmc;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.mrkproj.mmc.model.LibraryHandler;
 import org.mrkproj.mmc.model.LibraryWrapper;
@@ -36,8 +36,12 @@ public class MainApp extends Application {
 	private ObservableList<Channel> channels = FXCollections.observableArrayList();
 
 	public MainApp() {
-		movies.add(new Movie(Paths.get("")));
+		movies.add(new Movie(Paths.get(""), "The Matrix", 1999, 7921, new ArrayList<>(), new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "Braveheart", 1995, 9033, new ArrayList<>(), new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "Toy Story 3", 2011, 6974, new ArrayList<>(), new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "Max Max: Fury Road", 2015, 7802, new ArrayList<>(), new ArrayList<>()));
 		channels.add(new Channel("Action Movies"));
+		channels.add(new Channel("Tom Cruise Collection"));
 	}
 	
 	@Override

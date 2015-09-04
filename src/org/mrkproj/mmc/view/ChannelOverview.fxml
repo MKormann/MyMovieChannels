@@ -12,10 +12,10 @@
          <content>
             <TableView fx:id="channelTable" prefHeight="363.0" prefWidth="780.0">
               <columns>
-                <TableColumn prefWidth="149.0" text="Channel" />
-                <TableColumn prefWidth="257.0" text="Now Playing" />
-                  <TableColumn minWidth="0.0" prefWidth="117.0" text="Time" />
-                  <TableColumn prefWidth="256.0" text="Coming Up" />
+                <TableColumn fx:id="channelColumn" prefWidth="149.0" text="Channel" />
+                <TableColumn fx:id="currentMovieColumn" prefWidth="257.0" text="Now Playing" />
+                  <TableColumn fx:id="timeColumn" minWidth="0.0" prefWidth="117.0" text="Time" />
+                  <TableColumn fx:id="nextMovieColumn" prefWidth="256.0" text="Coming Up" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -16,8 +16,8 @@
             <TableView fx:id="movieTable" prefHeight="500.0">
               <columns>
                 <TableColumn fx:id="titleColumn" prefWidth="257.0" text="TItle" />
-                <TableColumn fx:id="yearColumn" prefWidth="61.0" text="Year" />
-                  <TableColumn fx:id="lengthColumn" prefWidth="71.0" text="Length" />
+                <TableColumn fx:id="yearColumn" maxWidth="1250.0" prefWidth="61.0" text="Year" />
+                  <TableColumn fx:id="lengthColumn" maxWidth="1500.0" prefWidth="71.0" text="Length" />
                   <TableColumn fx:id="starringColumn" prefWidth="195.0" text="Starring" />
                   <TableColumn fx:id="genreColumn" prefWidth="213.0" text="Genres" />
               </columns>
@@ -39,7 +39,7 @@
               </buttons>
             </ButtonBar>
             <Button layoutX="250.0" layoutY="15.0" mnemonicParsing="false" onAction="#createChannel" prefHeight="31.0" prefWidth="150.0" text="Create Channel" />
-            <Button layoutX="39.0" layoutY="15.0" mnemonicParsing="false" prefWidth="150.0" text="Channel List" />
+            <Button layoutX="39.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToChannels" prefWidth="150.0" text="Channel List" />
          </children>
       </AnchorPane>
    </bottom>

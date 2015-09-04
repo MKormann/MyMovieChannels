@@ -5,9 +5,13 @@ import org.mrkproj.mmc.model.channel.Channel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ChannelOverviewController {
 
@@ -65,7 +69,22 @@ public class ChannelOverviewController {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/CreateChannel.fxml"));
+			AnchorPane pane = (AnchorPane)loader.load();
 			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Create Channel");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApp.getPrimaryStage());
+			Scene scene = new Scene(pane);
+			dialogStage.setScene(scene);
+			
+			CreateChannelController controller = loader.getController();
+			controller.setStage(dialogStage);
+			dialogStage.showAndWait();
+			
+			if (controller.isSubmitted()) {
+				channelTable.getItems().add(controller.getChannel());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			//TODO

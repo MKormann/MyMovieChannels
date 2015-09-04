@@ -1,8 +1,11 @@
 package org.mrkproj.mmc.view;
 
+import org.mrkproj.mmc.model.channel.Channel;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * Controller for the Create Channel popup dialog
@@ -44,25 +47,53 @@ public class CreateChannelController {
 	@FXML
 	private CheckBox checkWestern;
 	
+	private Stage dialogStage;
+	private Channel channel;
+	private boolean submitted = false;
+	
 	@FXML
 	private void initialize() {
 		
 	}
 	
+	public void setStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+	
 	@FXML
 	public void submitNewChannel() {
-		
+		if (isValid()) {
+			submitted = true;
+			dialogStage.close();
+		}
 	}
 	
 	@FXML
 	public void cancel() {
-		
+		dialogStage.close();
 	}
 	
 	/**
 	 * @return whether or not user input is valid
 	 */
 	private boolean isValid() {
+		if (newChannelName.getText() == null || newChannelName.getText().length() == 0) {
+			
+		}
 		return true;
+	}
+	
+	/**
+	 * @return the created channel
+	 */
+	public Channel getChannel() {
+		return channel;
+	}
+	
+	/**
+	 * @return was submit clicked
+	 */
+	public boolean isSubmitted() {
+		return submitted;
 	}
 }

@@ -36,6 +36,14 @@ public class ChannelOverviewController {
 	}
 	
 	/**
+	 * Switch view to the library overview
+	 */
+	@FXML
+	public void goToLibrary() {
+		mainApp.displayLibrary();
+	}
+	
+	/**
 	 * Launch the selected channel
 	 */
 	@FXML

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mrkproj.mmc.view.ChannelOverviewController">
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true">
          <content>
@@ -32,13 +32,13 @@
          <children>
             <ButtonBar buttonMinWidth="100.0" prefHeight="62.0" prefWidth="417.0" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="15.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Create Channel" />
-                  <Button mnemonicParsing="false" text="Edit Channel" />
-                  <Button mnemonicParsing="false" text="Delete Channel" />
+                <Button mnemonicParsing="false" onAction="#createChannel" text="Create Channel" />
+                  <Button mnemonicParsing="false" onAction="#editChannel" text="Edit Channel" />
+                  <Button mnemonicParsing="false" onAction="#deleteChannel" text="Delete Channel" />
               </buttons>
             </ButtonBar>
-            <Button layoutX="32.0" layoutY="16.0" mnemonicParsing="false" prefWidth="150.0" text="Video Library" />
-            <Button layoutX="218.0" layoutY="16.0" mnemonicParsing="false" prefWidth="150.0" text="PLAY" />
+            <Button layoutX="32.0" layoutY="16.0" mnemonicParsing="false" onAction="#goToLibrary" prefWidth="150.0" text="Video Library" />
+            <Button layoutX="218.0" layoutY="16.0" mnemonicParsing="false" onAction="#playChannel" prefWidth="150.0" text="PLAY" />
          </children>
       </AnchorPane>
    </bottom>

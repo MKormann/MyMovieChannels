@@ -2,6 +2,8 @@ package org.mrkproj.mmc;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.mrkproj.mmc.model.LibraryHandler;
 import org.mrkproj.mmc.model.LibraryWrapper;
@@ -33,6 +35,11 @@ public class MainApp extends Application {
 	private ObservableList<Movie> movies = FXCollections.observableArrayList();
 	private ObservableList<Channel> channels = FXCollections.observableArrayList();
 
+	public MainApp() {
+		movies.add(new Movie(Paths.get("")));
+		channels.add(new Channel("Action Movies"));
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -47,7 +54,7 @@ public class MainApp extends Application {
 		
 		initRoot();
 		
-		displayLibrary();
+		displayChannels();
 	}
 	
 	public void initRoot() {
@@ -76,7 +83,7 @@ public class MainApp extends Application {
 			
 			rootLayout.setCenter(pane);
 			
-			ChannelOverviewController controller = new ChannelOverviewController();
+			ChannelOverviewController controller = loader.getController();
 			controller.setMainApp(this);
 			
 		} catch (IOException e) {
@@ -92,7 +99,7 @@ public class MainApp extends Application {
 			
 			rootLayout.setCenter(pane);
 			
-			LibraryOverviewController controller = new LibraryOverviewController();
+			LibraryOverviewController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace(); //TODO

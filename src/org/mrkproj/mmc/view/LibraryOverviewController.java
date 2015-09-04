@@ -29,6 +29,10 @@ public class LibraryOverviewController {
 	
 	private MainApp mainApp;
 	
+	public LibraryOverviewController() {
+		
+	}
+	
 	@FXML
 	private void initialize() {
 		titleColumn.setCellValueFactory(data -> data.getValue().getTitleProperty());

@@ -34,11 +34,11 @@ public class Movie {
 	 * @param length total runtime in seconds of the movie file
 	 * @param genres list of Genres applying to this movie
 	 */
-	public Movie(Path filename, String title, int length, int year, List<Genre> g, List<String> a) {
+	public Movie(Path filename, String title, int year, int length, List<Genre> g, List<String> a) {
 		this.filename = new SimpleObjectProperty<>(filename);
 		this.title = new SimpleStringProperty(title);
-		this.length = new SimpleIntegerProperty(length);
 		this.year = new SimpleIntegerProperty(year);
+		this.length = new SimpleIntegerProperty(length);
 		ArrayList<Genre> temp = new ArrayList<>();
 		temp.addAll(g);
 		ArrayList<String> temp2 = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Movie {
 	 * @param file location of the movie
 	 */
 	public Movie(Path filename) {
-		this(filename, filename.getFileName().toString(), 0, LocalDateTime.now().getYear(), 
+		this(filename, filename.getFileName().toString(), LocalDateTime.now().getYear(), 0, 
 				new ArrayList<>(), new ArrayList<>());
 	}
 

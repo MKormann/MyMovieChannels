@@ -102,6 +102,14 @@ public class MainApp extends Application {
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+	
+	public ObservableList<Movie> getMovies() {
+		return movies;
+	}
+	
+	public ObservableList<Channel> getChannels() {
+		return channels;
+	}
 
 	public static void main(String[] args) {
 		launch(args);

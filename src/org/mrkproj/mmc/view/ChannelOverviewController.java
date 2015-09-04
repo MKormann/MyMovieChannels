@@ -1,16 +1,28 @@
 package org.mrkproj.mmc.view;
 
 import org.mrkproj.mmc.MainApp;
+import org.mrkproj.mmc.model.channel.Channel;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class ChannelOverviewController {
 
 	@FXML
 	private Label channelLabel;
+	@FXML
+	private TableView<Channel> channelTable;
+	@FXML
+	private TableColumn<Channel, String> channelColumn;
+	@FXML
+	private TableColumn<Channel, String> currentMovieColumn;
+	@FXML
+	private TableColumn<Channel, String> timeColumn;
+	@FXML
+	private TableColumn<Channel, String> nextMovieColumn;
 	
-	//Reference to main application
 	private MainApp mainApp;
 	
 	@FXML
@@ -20,5 +32,39 @@ public class ChannelOverviewController {
 	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+		channelTable.setItems(mainApp.getChannels());
+	}
+	
+	/**
+	 * Launch the selected channel
+	 */
+	@FXML
+	public void playChannel() {
+		int index = channelTable.getSelectionModel().getSelectedIndex();
+		
+	}
+	
+	/**
+	 * Create new channel
+	 */
+	@FXML
+	public void createChannel() {
+		
+	}
+	
+	/**
+	 * Edit the channel criteria
+	 */
+	@FXML
+	public void editChannel() {
+		
+	}
+	
+	/**
+	 * Delete the selected channel
+	 */
+	@FXML
+	public void deleteChannel() {
+		
 	}
 }

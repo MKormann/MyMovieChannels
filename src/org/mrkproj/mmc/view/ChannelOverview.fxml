@@ -32,7 +32,7 @@
          <children>
             <ButtonBar buttonMinWidth="100.0" prefHeight="62.0" prefWidth="417.0" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="15.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Add Channel" />
+                <Button mnemonicParsing="false" text="Create Channel" />
                   <Button mnemonicParsing="false" text="Edit Channel" />
                   <Button mnemonicParsing="false" text="Delete Channel" />
               </buttons>

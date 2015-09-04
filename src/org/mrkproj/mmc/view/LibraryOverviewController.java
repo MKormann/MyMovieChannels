@@ -45,6 +45,7 @@ public class LibraryOverviewController {
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
+		movieTable.setItems(mainApp.getMovies());
 	}
 	
 	/**

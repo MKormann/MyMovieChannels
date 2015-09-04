@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mrkproj.mmc.view.LibraryOverviewController">
    <top>
       <Label fx:id="libraryLabel" text="Label" BorderPane.alignment="CENTER" />
    </top>
@@ -33,12 +33,12 @@
          <children>
             <ButtonBar buttonMinWidth="100.0" layoutX="416.0" prefHeight="40.0" prefWidth="374.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <buttons>
-                  <Button mnemonicParsing="false" text="Add Folder..." />
-                  <Button mnemonicParsing="false" text="Add File..." />
-                <Button mnemonicParsing="false" text="Remove" />
+                  <Button mnemonicParsing="false" onAction="#addFolder" text="Add Folder..." />
+                  <Button mnemonicParsing="false" onAction="#addFile" text="Add File..." />
+                <Button mnemonicParsing="false" onAction="#removeMovie" text="Remove" />
               </buttons>
             </ButtonBar>
-            <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="165.0" text="Create Channel" />
+            <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#createChannel" prefHeight="31.0" prefWidth="165.0" text="Create Channel" />
          </children>
       </AnchorPane>
    </bottom>

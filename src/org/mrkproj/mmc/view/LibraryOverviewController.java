@@ -53,6 +53,13 @@ public class LibraryOverviewController {
 	}
 	
 	/**
+	 * Switch view to Channels
+	 */
+	public void goToChannels() {
+		mainApp.displayChannels();
+	}
+	
+	/**
 	 * Create a channel using the currently selected movie as a starting point.
 	 */
 	@FXML

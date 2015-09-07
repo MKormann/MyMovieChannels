@@ -1,11 +1,16 @@
 package org.mrkproj.mmc.view;
 
+import java.util.Optional;
+
 import org.mrkproj.mmc.MainApp;
 import org.mrkproj.mmc.model.channel.Channel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -104,6 +109,18 @@ public class ChannelOverviewController {
 	 */
 	@FXML
 	public void deleteChannel() {
-		
+		int index = channelTable.getSelectionModel().getSelectedIndex();
+		if (index != -1) {
+			Channel channel = channelTable.getItems().get(index);
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete channel");
+			alert.setHeaderText("This will delete the channel \"" + channel.getChannelName() +"\"");
+			alert.setContentText("Are you sure?");
+	
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			    channelTable.getItems().remove(index);
+			}
+		}
 	}
 }

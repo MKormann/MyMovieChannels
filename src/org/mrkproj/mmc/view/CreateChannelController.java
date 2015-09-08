@@ -65,7 +65,6 @@ public class CreateChannelController {
 	private Map<Genre, CheckBox> checkBoxes;
 	private Channel channel;
 	private boolean submitted = false;
-	private boolean editing = false;
 	
 	@FXML
 	private void initialize() {
@@ -107,7 +106,7 @@ public class CreateChannelController {
 	public void submitChannel() {
 		if (isValid()) {
 			submitted = true;
-			if (!editing) channel = new Channel(newChannelName.getText());
+			if (channel == null) channel = new Channel(newChannelName.getText());
 			else channel.setChannelName(newChannelName.getText());
 			channel.setGenres(getSelectedGenres());
 			channel.setActors(getActorList());
@@ -193,7 +192,6 @@ public class CreateChannelController {
 	 */
 	public void setChannel(Channel channel) {
 		this.channel = channel;
-		editing = true;
 		
 		//Set channel name text field
 		newChannelName.setText(channel.getChannelName());

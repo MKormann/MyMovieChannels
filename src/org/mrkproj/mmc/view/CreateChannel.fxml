@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="610.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mrkproj.mmc.view.CreateChannelController">
    <children>
-      <Label layoutX="110.0" layoutY="14.0" text="Create New Channel" AnchorPane.topAnchor="14.0">
+      <Label fx:id="currentAction" layoutX="110.0" layoutY="14.0" text="Create New Channel" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="20.0" />
          </font>
@@ -92,7 +92,7 @@
       </GridPane>
       <ButtonBar buttonMinWidth="100.0" layoutX="32.0" layoutY="556.0" prefHeight="40.0" prefWidth="354.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#submitNewChannel" prefHeight="31.0" prefWidth="163.0" text="Submit" />
+          <Button mnemonicParsing="false" onAction="#submitChannel" prefHeight="31.0" prefWidth="163.0" text="Submit" />
             <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
         </buttons>
          <padding>

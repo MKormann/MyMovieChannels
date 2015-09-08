@@ -86,8 +86,16 @@ public class Channel {
 	}
 	
 	
+	/**
+	 * Getters and setters below
+	 */
+	
 	public String getChannelName() {
 		return channelName.get();
+	}
+	
+	public void setChannelName(String name) {
+		channelName.set(name);
 	}
 	
 	public StringProperty getChannelNameProperty() {

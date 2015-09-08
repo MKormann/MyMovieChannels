@@ -85,11 +85,14 @@ public class ChannelOverviewController {
 			
 			CreateChannelController controller = loader.getController();
 			controller.setStage(dialogStage);
+			controller.setLabel("Create New Channel");
 			dialogStage.showAndWait();
 			
 			if (controller.isSubmitted()) {
 				channelTable.getItems().add(controller.getChannel());
 			}
+			
+			//TODO Populate channel's queue and start 
 		} catch (Exception e) {
 			e.printStackTrace();
 			//TODO
@@ -101,7 +104,34 @@ public class ChannelOverviewController {
 	 */
 	@FXML
 	public void editChannel() {
-		
+		int index = channelTable.getSelectionModel().getSelectedIndex();
+		if (index != -1) {
+			Channel channel = channelTable.getItems().get(index);
+			
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource("view/CreateChannel.fxml"));
+				AnchorPane pane = (AnchorPane)loader.load();
+				
+				Stage dialogStage = new Stage();
+				dialogStage.setTitle("Edit Channel");
+				dialogStage.initModality(Modality.WINDOW_MODAL);
+				dialogStage.initOwner(mainApp.getPrimaryStage());
+				Scene scene = new Scene(pane);
+				dialogStage.setScene(scene);
+				
+				CreateChannelController controller = loader.getController();
+				controller.setStage(dialogStage);
+				controller.setLabel("Edit Channel");
+				controller.setChannel(channel);
+				dialogStage.showAndWait();
+				
+				//TODO repopulate channel queue, either from end of current or replace current
+			} catch (Exception e) {
+				e.printStackTrace();
+				//TODO
+			}
+		}
 	}
 	
 	/**

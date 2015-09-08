@@ -1,7 +1,9 @@
 package org.mrkproj.mmc.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.mrkproj.mmc.model.Genre;
@@ -9,10 +11,11 @@ import org.mrkproj.mmc.model.channel.Channel;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -22,6 +25,8 @@ import javafx.stage.Stage;
  */
 public class CreateChannelController {
 
+	@FXML
+	private Label currentAction;
 	@FXML
 	private TextField newChannelName;
 	@FXML
@@ -57,8 +62,10 @@ public class CreateChannelController {
 	
 	private Stage dialogStage;
 	private List<TextField> actorNames;
+	private Map<Genre, CheckBox> checkBoxes;
 	private Channel channel;
 	private boolean submitted = false;
+	private boolean editing = false;
 	
 	@FXML
 	private void initialize() {
@@ -69,10 +76,27 @@ public class CreateChannelController {
 		actorNames.add(actorThree);
 		actorNames.add(actorFour);
 		actorNames.add(actorFive);
+		
+		//Add checkboxes to map for easy access
+		checkBoxes = new HashMap<>();
+		checkBoxes.put(Genre.ACTION, checkAction);
+		checkBoxes.put(Genre.ANIMATED, checkAnimated);
+		checkBoxes.put(Genre.CLASSIC, checkClassic);
+		checkBoxes.put(Genre.COMEDY, checkComedy);
+		checkBoxes.put(Genre.DRAMA, checkDrama);
+		checkBoxes.put(Genre.HORROR, checkHorror);
+		checkBoxes.put(Genre.ROMANCE, checkRomance);
+		checkBoxes.put(Genre.SCIFI, checkSciFi);
+		checkBoxes.put(Genre.THRILLER, checkThriller);
+		checkBoxes.put(Genre.WESTERN, checkWestern);
 	}
 	
 	public void setStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
+	}
+	
+	public void setLabel(String currentAction) {
+		this.currentAction.setText(currentAction);
 	}
 	
 	@FXML
@@ -80,10 +104,11 @@ public class CreateChannelController {
 	 * Check input, create new channel, and close dialog.
 	 * Called on OK click.
 	 */
-	public void submitNewChannel() {
+	public void submitChannel() {
 		if (isValid()) {
 			submitted = true;
-			channel = new Channel(newChannelName.getText());
+			if (!editing) channel = new Channel(newChannelName.getText());
+			else channel.setChannelName(newChannelName.getText());
 			channel.setGenres(getSelectedGenres());
 			channel.setActors(getActorList());
 			dialogStage.close();
@@ -136,16 +161,9 @@ public class CreateChannelController {
 	 */
 	private List<Genre> getSelectedGenres() {
 		ArrayList<Genre> genres = new ArrayList<>();
-		if (checkAction.isSelected()) genres.add(Genre.ACTION);
-		if (checkAnimated.isSelected()) genres.add(Genre.ANIMATED);
-		if (checkClassic.isSelected()) genres.add(Genre.CLASSIC);
-		if (checkComedy.isSelected()) genres.add(Genre.COMEDY);
-		if (checkDrama.isSelected()) genres.add(Genre.DRAMA);
-		if (checkHorror.isSelected()) genres.add(Genre.HORROR);
-		if (checkRomance.isSelected()) genres.add(Genre.ROMANCE);
-		if (checkSciFi.isSelected()) genres.add(Genre.SCIFI);
-		if (checkThriller.isSelected()) genres.add(Genre.THRILLER);
-		if (checkWestern.isSelected()) genres.add(Genre.WESTERN);
+		for (Genre g : checkBoxes.keySet()) {
+			if (checkBoxes.get(g).isSelected()) genres.add(g);
+		}
 		return genres;
 	}
 	
@@ -167,6 +185,38 @@ public class CreateChannelController {
 	 */
 	public Channel getChannel() {
 		return channel;
+	}
+	
+	/**
+	 * 
+	 * @param set channel to be edited
+	 */
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+		editing = true;
+		
+		//Set channel name text field
+		newChannelName.setText(channel.getChannelName());
+		
+		//Set check boxes to show channel's genres
+		List<Genre> listGenre = channel.getGenres();
+		for (CheckBox c : checkBoxes.values()) {
+			c.setSelected(false);
+		}
+		for (Genre g : listGenre) {
+			checkBoxes.get(g).setSelected(true);
+		}
+		
+		//Set actor text fields to show channel's actors
+		List<String> listActor = channel.getActors();
+		int len = listActor.size();
+		System.out.println(len);
+		//Check if channel was assigned more than 5 actors
+		if (len > 5) len = 5;
+		for (int i = 0; i < len; i++) {
+			if (listActor.get(i) != null) actorNames.get(i).setText(listActor.get(i));
+			else actorNames.get(i).setText("");
+		}
 	}
 	
 	/**

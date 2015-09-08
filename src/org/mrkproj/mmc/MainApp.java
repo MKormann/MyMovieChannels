@@ -2,8 +2,11 @@ package org.mrkproj.mmc;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.mrkproj.mmc.model.LibraryHandler;
 import org.mrkproj.mmc.model.LibraryWrapper;
@@ -34,6 +37,7 @@ public class MainApp extends Application {
 	
 	private ObservableList<Movie> movies = FXCollections.observableArrayList();
 	private ObservableList<Channel> channels = FXCollections.observableArrayList();
+	private Set<Path> moviePaths = new HashSet<>();
 
 	public MainApp() {
 		movies.add(new Movie(Paths.get(""), "The Matrix", 1999, 7921, new ArrayList<>(), new ArrayList<>()));
@@ -53,6 +57,9 @@ public class MainApp extends Application {
 		if (file != null) {
 			LibraryWrapper wrapper = LibraryHandler.loadLibraryFromFile(file);
 			movies.addAll(wrapper.getMovies());
+			for (Movie m : wrapper.getMovies()) {
+				moviePaths.add(m.getFilename());
+			}
 			channels.addAll(wrapper.getChannels());
 		}
 		
@@ -120,6 +127,10 @@ public class MainApp extends Application {
 	
 	public ObservableList<Channel> getChannels() {
 		return channels;
+	}
+	
+	public Set<Path> getMoviePaths() {
+		return moviePaths;
 	}
 
 	public static void main(String[] args) {

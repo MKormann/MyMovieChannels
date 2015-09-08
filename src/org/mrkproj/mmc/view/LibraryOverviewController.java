@@ -1,11 +1,13 @@
 package org.mrkproj.mmc.view;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.mrkproj.mmc.MainApp;
 import org.mrkproj.mmc.model.movie.Movie;
 
@@ -15,6 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -38,8 +41,11 @@ public class LibraryOverviewController {
 	private final String extensions = "Video Files (*.3gp *.avi *.divx *.f4v *.flv *.m4v *.mkv *.mov *.mp4 *.mpeg *.mpg "
 										+ "*.mov *.vob *.webm *.wmv)";
 	
-	private final List<String> extList = Arrays.asList("*.3gp", "*.avi", "*.divx", "*.f4v", "*.flv", "*.m4v", "*.mkv", 
-											"*.mov", "*.mp4", "*.mpeg", "*.mpg", "*.mov", "*.vob", "*.webm", "*.wmv");
+	private final String[] extList = {"*.3gp", "*.avi", "*.divx", "*.f4v", "*.flv", "*.m4v", "*.mkv", 
+											"*.mov", "*.mp4", "*.mpeg", "*.mpg", "*.mov", "*.vob", "*.webm", "*.wmv"};
+	
+	private final String[] extList2 = {"3gp", "avi", "divx", "f4v", "flv", "m4v", "mkv", 
+											"mov", "mp4", "mpeg", "mpg", "mov", "vob", "webm", "wmv"};
 	
 	private MainApp mainApp;
 	
@@ -97,7 +103,18 @@ public class LibraryOverviewController {
 	 */
 	@FXML
 	public void addFolder() {
-		
+		DirectoryChooser chooser = new DirectoryChooser();
+
+		File directory = chooser.showDialog(mainApp.getPrimaryStage());
+		if (directory != null && directory.isDirectory()) {
+			for (File file : FileUtils.listFiles(directory, extList2, true)) {
+				Path path = Paths.get(file.toURI());
+				if (!mainApp.getMoviePaths().contains(path)) {
+					mainApp.getMovies().add(new Movie(path));
+					mainApp.getMoviePaths().add(path);
+				}
+			}
+		}
 	}
 	
 	/**

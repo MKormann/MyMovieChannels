@@ -37,6 +37,7 @@ public class MainApp extends Application {
 	
 	private ObservableList<Movie> movies = FXCollections.observableArrayList();
 	private ObservableList<Channel> channels = FXCollections.observableArrayList();
+	
 	private Set<Path> moviePaths = new HashSet<>();
 
 	public MainApp() {
@@ -57,6 +58,7 @@ public class MainApp extends Application {
 		if (file != null) {
 			LibraryWrapper wrapper = LibraryHandler.loadLibraryFromFile(file);
 			movies.addAll(wrapper.getMovies());
+			//Add path for each movie to set
 			for (Movie m : wrapper.getMovies()) {
 				moviePaths.add(m.getFilename());
 			}

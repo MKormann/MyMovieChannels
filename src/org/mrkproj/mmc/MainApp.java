@@ -98,7 +98,6 @@ public class MainApp extends Application {
 			
 			ChannelOverviewController controller = loader.getController();
 			controller.setMainApp(this);
-			
 		} catch (IOException e) {
 			e.printStackTrace(); //TODO
 		}

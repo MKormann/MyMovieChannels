@@ -90,14 +90,6 @@ public class CreateChannelController {
 		checkBoxes.put(Genre.WESTERN, checkWestern);
 	}
 	
-	public void setStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-	
-	public void setLabel(String currentAction) {
-		this.currentAction.setText(currentAction);
-	}
-	
 	@FXML
 	/**
 	 * Check input, create new channel, and close dialog.
@@ -156,6 +148,44 @@ public class CreateChannelController {
 	
 	/**
 	 * 
+	 * @param set channel to be edited
+	 */
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+		
+		//Set channel name text field
+		newChannelName.setText(channel.getChannelName());
+		
+		//Set check boxes to show channel's genres
+		List<Genre> listGenre = channel.getGenres();
+		for (CheckBox c : checkBoxes.values()) {
+			c.setSelected(false);
+		}
+		for (Genre g : listGenre) {
+			checkBoxes.get(g).setSelected(true);
+		}
+		
+		//Set actor text fields to show channel's actors
+		List<String> listActor = channel.getActors();
+		int len = listActor.size();
+		//Check if channel was assigned more than 5 actors
+		if (len > 5) len = 5;
+		for (int i = 0; i < len; i++) {
+			if (listActor.get(i) != null) actorNames.get(i).setText(listActor.get(i));
+			else actorNames.get(i).setText("");
+		}
+	}
+	
+	/**
+	 * @return was submit clicked
+	 */
+	public boolean isSubmitted() {
+		return submitted;
+	}
+	
+	
+	/**
+	 * 
 	 * @return list of genres checked by user
 	 */
 	private List<Genre> getSelectedGenres() {
@@ -186,41 +216,11 @@ public class CreateChannelController {
 		return channel;
 	}
 	
-	/**
-	 * 
-	 * @param set channel to be edited
-	 */
-	public void setChannel(Channel channel) {
-		this.channel = channel;
-		
-		//Set channel name text field
-		newChannelName.setText(channel.getChannelName());
-		
-		//Set check boxes to show channel's genres
-		List<Genre> listGenre = channel.getGenres();
-		for (CheckBox c : checkBoxes.values()) {
-			c.setSelected(false);
-		}
-		for (Genre g : listGenre) {
-			checkBoxes.get(g).setSelected(true);
-		}
-		
-		//Set actor text fields to show channel's actors
-		List<String> listActor = channel.getActors();
-		int len = listActor.size();
-		System.out.println(len);
-		//Check if channel was assigned more than 5 actors
-		if (len > 5) len = 5;
-		for (int i = 0; i < len; i++) {
-			if (listActor.get(i) != null) actorNames.get(i).setText(listActor.get(i));
-			else actorNames.get(i).setText("");
-		}
+	public void setStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
 	}
 	
-	/**
-	 * @return was submit clicked
-	 */
-	public boolean isSubmitted() {
-		return submitted;
+	public void setLabel(String currentAction) {
+		this.currentAction.setText(currentAction);
 	}
 }

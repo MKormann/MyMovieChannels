@@ -20,6 +20,31 @@ public class RootLayoutController {
 	}
 	
 	@FXML
+	private void newLibrary() {
+		mainApp.getChannels().clear();
+		mainApp.getMovies().clear();
+		mainApp.getMoviePaths().clear();
+		LibraryHandler.setFilePath(null);
+	}
+	
+	@FXML
+	private void openLibrary() {
+		FileChooser fileChooser = new FileChooser();
+		
+		//Set extension filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+				"XML files (*.xml)", "*.xml"); 
+		fileChooser.getExtensionFilters().add(extFilter);
+		
+		//Show save file dialog
+		Path path = Paths.get(fileChooser.showOpenDialog(mainApp.getPrimaryStage()).toURI());
+		
+		if (path != null) {
+			mainApp.setLibrary(LibraryHandler.loadLibraryFromFile(path));
+		}
+	}
+	
+	@FXML
 	private void saveLibrary() {
 		Path path = LibraryHandler.getFilePath();
 		if (path != null) {

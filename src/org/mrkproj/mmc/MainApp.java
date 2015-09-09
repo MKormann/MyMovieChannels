@@ -56,16 +56,7 @@ public class MainApp extends Application {
 		
 		Path path = LibraryHandler.getFilePath();
 		if (path != null) {
-			LibraryWrapper wrapper = LibraryHandler.loadLibraryFromFile(path);
-			channels.clear();
-			channels.addAll(wrapper.getChannels());
-			movies.clear();
-			movies.addAll(wrapper.getMovies());
-			moviePaths.clear();
-			//Add path for each movie to set
-			for (Movie m : wrapper.getMovies()) {
-				moviePaths.add(m.getFilename());
-			}
+			setLibrary(LibraryHandler.loadLibraryFromFile(path));
 		}
 		
 		initRoot();
@@ -120,6 +111,18 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace(); //TODO
 		}
+	}
+	
+	public void setLibrary(LibraryWrapper wrapper) {
+		channels.clear();
+		channels.addAll(wrapper.getChannels());
+		movies.clear();
+		movies.addAll(wrapper.getMovies());
+		moviePaths.clear();
+		//Add path for each movie to set
+		for (Movie m : wrapper.getMovies()) {
+			moviePaths.add(m.getFilename());
+		}	
 	}
 	
 	public Stage getPrimaryStage() {

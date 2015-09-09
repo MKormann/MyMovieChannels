@@ -163,9 +163,8 @@ public class LibraryOverviewController {
 		chooser.getExtensionFilters().add(filter);
 		
 		File file = chooser.showOpenDialog(mainApp.getPrimaryStage());
-		
-		if (file != null) {
-			Path path = Paths.get(file.toURI());
+		Path path = Paths.get(file.toURI());
+		if (path != null) {
 			if (!mainApp.getMoviePaths().contains(path)) {
 				Movie movie = new Movie(path);
 				mainApp.getMovies().add(new Movie(path));

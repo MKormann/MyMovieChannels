@@ -1,5 +1,4 @@
 package org.mrkproj.mmc.model;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.prefs.Preferences;

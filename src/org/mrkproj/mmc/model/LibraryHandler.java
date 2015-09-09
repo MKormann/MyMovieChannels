@@ -1,5 +1,7 @@
 package org.mrkproj.mmc.model;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -25,56 +27,58 @@ public class LibraryHandler {
 		
 	}
 
-	public static File getFilePath() {
+	public static Path getFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		String filePath = prefs.get("filePath", null);
 		if (filePath != null) {
-			return new File(filePath);
+			return Paths.get(filePath);
 		} else {
 			return null;
 		}
 	}
 	
-	public static void setFilePath(File file) {
+	public static void setFilePath(Path path) {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		if (file != null) {
-			prefs.put("filePath", file.getPath());
+		if (path != null) {
+			prefs.put("filePath", path.toString());
 		} else {
 			prefs.remove("filePath");
 		}
 	}	 
 	
-	public static LibraryWrapper loadLibraryFromFile(File file) {
+	public static LibraryWrapper loadLibraryFromFile(Path path) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(LibraryWrapper.class);
 			Unmarshaller um = context.createUnmarshaller();
-			LibraryWrapper wrapper = (LibraryWrapper)um.unmarshal(file);
-			setFilePath(file);
+			LibraryWrapper wrapper = (LibraryWrapper)um.unmarshal(path.toFile());
+			setFilePath(path);
 			return wrapper;
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Save error");
 			alert.setHeaderText("Unable to save data");
-			alert.setContentText("Unable to save data to file:\n" + file.getPath());
+			alert.setContentText("Unable to save data to file:\n" + path.toString());
 			
 			alert.showAndWait(); 
 			return null;
 		}
 	}
 	
-	public static void saveLibraryToFile(File file, LibraryWrapper wrapper) {
+	public static void saveLibraryToFile(Path path, LibraryWrapper wrapper) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(LibraryWrapper.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
-			m.marshal(wrapper, file);
+			m.marshal(wrapper, path.toFile());
+			
+			setFilePath(path);
 			
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Save error");
 			alert.setHeaderText("Unable to save data");
-			alert.setContentText("Unable to save data to file:\n" + file.getPath());
+			alert.setContentText("Unable to save data to file:\n" + path.toString());
 			
 			alert.showAndWait(); 
 		}

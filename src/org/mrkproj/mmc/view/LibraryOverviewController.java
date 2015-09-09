@@ -167,6 +167,7 @@ public class LibraryOverviewController {
 		if (file != null) {
 			Path path = Paths.get(file.toURI());
 			if (!mainApp.getMoviePaths().contains(path)) {
+				Movie movie = new Movie(path);
 				mainApp.getMovies().add(new Movie(path));
 				mainApp.getMoviePaths().add(path);
 			}

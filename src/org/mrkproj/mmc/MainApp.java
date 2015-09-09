@@ -73,7 +73,7 @@ public class MainApp extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			
-			RootLayoutController controller = new RootLayoutController();
+			RootLayoutController controller = loader.getController();
 			controller.setMainApp(this);
 			
 			primaryStage.show();			

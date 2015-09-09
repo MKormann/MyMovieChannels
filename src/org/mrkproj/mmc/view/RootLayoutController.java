@@ -10,6 +10,7 @@ import org.mrkproj.mmc.model.LibraryWrapper;
 
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class RootLayoutController {
 
@@ -21,6 +22,7 @@ public class RootLayoutController {
 	
 	@FXML
 	private void newLibrary() {
+		mainApp = new MainApp();
 		mainApp.getChannels().clear();
 		mainApp.getMovies().clear();
 		mainApp.getMoviePaths().clear();
@@ -29,15 +31,16 @@ public class RootLayoutController {
 	
 	@FXML
 	private void openLibrary() {
-		FileChooser fileChooser = new FileChooser();
+		FileChooser chooser = new FileChooser();
 		
 		//Set extension filter
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+		ExtensionFilter filter = new ExtensionFilter(
 				"XML files (*.xml)", "*.xml"); 
-		fileChooser.getExtensionFilters().add(extFilter);
+		chooser.getExtensionFilters().add(filter);
 		
 		//Show save file dialog
-		Path path = Paths.get(fileChooser.showOpenDialog(mainApp.getPrimaryStage()).toURI());
+		File file = chooser.showOpenDialog(mainApp.getPrimaryStage());
+		Path path = Paths.get(file.toURI());
 		
 		if (path != null) {
 			mainApp.setLibrary(LibraryHandler.loadLibraryFromFile(path));
@@ -59,20 +62,21 @@ public class RootLayoutController {
 	
 	@FXML
 	private void saveLibraryAs() {
-        FileChooser fileChooser = new FileChooser();
+        FileChooser chooser = new FileChooser();
 
         // Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+        ExtensionFilter filter = new ExtensionFilter(
                 "XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
+        chooser.getExtensionFilters().add(filter);
 
         // Show save file dialog
-        Path path = Paths.get(fileChooser.showSaveDialog(mainApp.getPrimaryStage()).toURI());
+        File file = chooser.showSaveDialog(mainApp.getPrimaryStage());
+        Path path = Paths.get(file.toURI());
 
         if (path != null) {
             // Make sure it has the correct extension
             if (!path.endsWith(".xml")) {
-                path = Paths.get(path.toUri() + ".xml");
+                path = Paths.get(path + ".xml");
             }
             LibraryWrapper wrapper = new LibraryWrapper();
 			wrapper.setChannels(mainApp.getChannels());

@@ -62,7 +62,7 @@ public class CreateChannelController {
 	
 	private Stage dialogStage;
 	private List<TextField> actorNames;
-	private Map<Genre, CheckBox> checkBoxes;
+	private Map<Integer, CheckBox> checkBoxes;
 	private Channel channel;
 	private boolean submitted = false;
 	
@@ -129,7 +129,7 @@ public class CreateChannelController {
             
             return false;
 		}
-		if (getSelectedGenres().isEmpty() && getActorList().isEmpty()) {
+		if (!isAnySelected() && getActorList().isEmpty()) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.initOwner(dialogStage);
             alert.setTitle("No criteria selected");
@@ -157,19 +157,18 @@ public class CreateChannelController {
 		newChannelName.setText(channel.getChannelName());
 		
 		//Set check boxes to show channel's genres
-		List<Genre> listGenre = channel.getGenres();
-		for (CheckBox c : checkBoxes.values()) {
-			c.setSelected(false);
-		}
-		for (Genre g : listGenre) {
-			checkBoxes.get(g).setSelected(true);
+		boolean[] genres = channel.getGenres();
+		for (int i = 0; i < genres.length; i++) {
+			checkBoxes.get(i).setSelected(genres[i]);
 		}
 		
 		//Set actor text fields to show channel's actors
 		List<String> listActor = channel.getActors();
 		int len = listActor.size();
+		
 		//Check if channel was assigned more than 5 actors
 		if (len > 5) len = 5;
+		
 		for (int i = 0; i < len; i++) {
 			if (listActor.get(i) != null) actorNames.get(i).setText(listActor.get(i));
 			else actorNames.get(i).setText("");
@@ -188,12 +187,22 @@ public class CreateChannelController {
 	 * 
 	 * @return list of genres checked by user
 	 */
-	private List<Genre> getSelectedGenres() {
-		ArrayList<Genre> genres = new ArrayList<>();
-		for (Genre g : checkBoxes.keySet()) {
-			if (checkBoxes.get(g).isSelected()) genres.add(g);
+	private boolean[] getSelectedGenres() {
+		boolean[] genres = new boolean[Genre.GENRES];
+		for (Integer i : checkBoxes.keySet()) {
+			if (checkBoxes.get(i).isSelected()) genres[i] = true;
 		}
 		return genres;
+	}
+	
+	/**
+	 * @return checks if there is at least one selection
+	 */
+	private boolean isAnySelected() {
+		for (Integer i : checkBoxes.keySet()) {
+			if (checkBoxes.get(i).isSelected()) return true;
+		}
+		return false;
 	}
 	
 	/**

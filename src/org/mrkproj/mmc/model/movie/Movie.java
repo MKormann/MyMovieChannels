@@ -24,7 +24,7 @@ public class Movie {
 	private final StringProperty title;
 	private final IntegerProperty year;
 	private final IntegerProperty length; //change to final once available TODO
-	private final ObjectProperty<List<Genre>> genres;
+	private final ObjectProperty<boolean[]> genres;
 	private final ObjectProperty<List<String>> actors;
 	
 	/**
@@ -32,15 +32,18 @@ public class Movie {
 	 * @param title of the movie
 	 * @param filename the file location of the movie
 	 * @param length total runtime in seconds of the movie file
-	 * @param genres list of Genres applying to this movie
+	 * @param g list of booleans representing the Genres applying to this movie
+	 * @param a list of actor names
 	 */
-	public Movie(Path filename, String title, int year, int length, List<Genre> g, List<String> a) {
+	public Movie(Path filename, String title, int year, int length, boolean[] g, List<String> a) {
 		this.filename = new SimpleObjectProperty<>(filename);
 		this.title = new SimpleStringProperty(title);
 		this.year = new SimpleIntegerProperty(year);
 		this.length = new SimpleIntegerProperty(length);
-		ArrayList<Genre> temp = new ArrayList<>();
-		temp.addAll(g);
+		boolean[] temp = new boolean[Genre.GENRES];
+		for (int i = 0; i < g.length; i++) {
+			temp[i] = g[i];
+		}
 		ArrayList<String> temp2 = new ArrayList<>();
 		temp2.addAll(a);
 		this.genres = new SimpleObjectProperty<>(temp);
@@ -53,7 +56,7 @@ public class Movie {
 	 */
 	public Movie(Path filename) {
 		this(filename, filename.getFileName().toString(), LocalDateTime.now().getYear(), 0, 
-				new ArrayList<>(), new ArrayList<>());
+				new boolean[Genre.GENRES], new ArrayList<>());
 	}
 
 	public String getTitle() {
@@ -64,11 +67,11 @@ public class Movie {
 		return title;
 	}
 
-	public List<Genre> getGenres() {
+	public boolean[] getGenres() {
 		return genres.get();
 	}
 	
-	public ObjectProperty<List<Genre>> getGenreProperty() {
+	public ObjectProperty<boolean[]> getGenreProperty() {
 		return genres;
 	}
 	
@@ -112,8 +115,23 @@ public class Movie {
 		this.year.set(year);
 	}
 
-	public void setGenres(List<Genre> genres) {
-		this.genres.set(genres);
+	public void setGenres(boolean[] genres) {
+		if (genres == null) this.genres.set(new boolean[Genre.GENRES]);
+		else if (genres.length == Genre.GENRES) {
+			boolean[] temp = new boolean[Genre.GENRES];
+			for (int i = 0; i < Genre.GENRES; i++) {
+				temp[i] = genres[i];
+			}
+			this.genres.set(temp);
+		}
+	}
+	
+	public void addGenre(int i) {
+		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = true;
+	}
+	
+	public void removeGenre(int i) {
+		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = false;
 	}
 	
 	public void setActors(List<String> actors) {

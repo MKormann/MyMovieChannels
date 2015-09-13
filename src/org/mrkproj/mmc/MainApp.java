@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.model.LibraryHandler;
 import org.mrkproj.mmc.model.LibraryWrapper;
 import org.mrkproj.mmc.model.channel.Channel;
@@ -40,10 +41,10 @@ public class MainApp extends Application {
 	private Set<Path> moviePaths = new HashSet<>();
 
 	public MainApp() {
-		movies.add(new Movie(Paths.get(""), "The Matrix", 1999, 7921, new ArrayList<>(), new ArrayList<>()));
-		movies.add(new Movie(Paths.get(""), "Braveheart", 1995, 9033, new ArrayList<>(), new ArrayList<>()));
-		movies.add(new Movie(Paths.get(""), "Toy Story 3", 2011, 6974, new ArrayList<>(), new ArrayList<>()));
-		movies.add(new Movie(Paths.get(""), "Max Max: Fury Road", 2015, 7802, new ArrayList<>(), new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "The Matrix", 1999, 7921, new boolean[Genre.GENRES], new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "Braveheart", 1995, 9033, new boolean[Genre.GENRES], new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "Toy Story 3", 2011, 6974, new boolean[Genre.GENRES], new ArrayList<>()));
+		movies.add(new Movie(Paths.get(""), "Max Max: Fury Road", 2015, 7802, new boolean[Genre.GENRES], new ArrayList<>()));
 		channels.add(new Channel("Action Movies"));
 		channels.add(new Channel("Tom Cruise Collection"));
 	}
@@ -114,14 +115,20 @@ public class MainApp extends Application {
 	
 	public void setLibrary(LibraryWrapper wrapper) {
 		channels.clear();
-		channels.addAll(wrapper.getChannels());
+		if (wrapper.getChannels() != null) {
+			channels.addAll(wrapper.getChannels());
+		}
 		movies.clear();
-		movies.addAll(wrapper.getMovies());
+		if (wrapper.getMovies() != null) {
+			movies.addAll(wrapper.getMovies());
+		}
 		moviePaths.clear();
 		//Add path for each movie to set
-		for (Movie m : wrapper.getMovies()) {
-			moviePaths.add(m.getFilename());
-		}	
+		if (wrapper.getMovies() != null) {
+			for (Movie m : wrapper.getMovies()) {
+				moviePaths.add(m.getFilename());
+			}	
+		}
 	}
 	
 	public Stage getPrimaryStage() {

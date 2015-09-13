@@ -31,7 +31,7 @@ public class ChannelFactory {
 	 * @param genres array of Genre enums
 	 * @return call to factory method with name, genres, and null array for actors
 	 */
-	public static Channel createGenreChannel(String name, List<Genre> genres) {
+	public static Channel createGenreChannel(String name, boolean[] genres) {
 		return ChannelFactory.createChannel(name, genres, null);	
 	}
 	
@@ -52,7 +52,7 @@ public class ChannelFactory {
 	 * @param actorIDs array of actors
 	 * @return constructs a new Channel with three given parameters
 	 */
-	public static Channel createChannel(String name, List<Genre> genres, List<String> actorIDs) {
+	public static Channel createChannel(String name, boolean[] genres, List<String> actorIDs) {
 		Channel channel = new Channel(name);
 		channel.setGenres(genres);
 		channel.setActors(actorIDs);

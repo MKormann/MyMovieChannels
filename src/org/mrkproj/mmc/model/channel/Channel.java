@@ -27,7 +27,7 @@ public class Channel {
 	private final StringProperty channelName;
 	private final StringProperty currentMovie;
 	private final StringProperty nextMovie;
-	private final ObjectProperty<List<Genre>> genres;
+	private final ObjectProperty<boolean[]> genres;
 	private final ObjectProperty<List<String>> actors;
 
 	private Queue<MovieInstance> queue;
@@ -118,21 +118,33 @@ public class Channel {
 		return nextMovie;
 	}
 	
-	public List<Genre> getGenres() {
+	public boolean[] getGenres() {
 		return genres.get();
 	}
 	
-	public ObjectProperty<List<Genre>> getGenreProperty() {
+	public ObjectProperty<boolean[]> getGenreProperty() {
 		return genres;
 	}
 	
-	public void setGenres(List<Genre> g) {
-		if (g == null) genres.set(new ArrayList<Genre>());
+	public void setGenres(boolean[] genres) {
+		if (genres == null) this.genres.set(new boolean[Genre.GENRES]);
 		else {
-			ArrayList<Genre> temp = new ArrayList<>();
-			temp.addAll(g);
-			genres.set(temp);
+			if (genres.length == Genre.GENRES) {
+				boolean[] temp = new boolean[Genre.GENRES];
+				for (int i = 0; i < Genre.GENRES; i++) {
+					temp[i] = genres[i];
+				}
+				this.genres.set(temp);
+			}
 		}
+	}
+	
+	public void addGenre(int i) {
+		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = true;
+	}
+	
+	public void removeGenre(int i) {
+		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = false;
 	}
 	
 	public List<String> getActors() {

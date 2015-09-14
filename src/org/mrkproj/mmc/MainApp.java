@@ -54,10 +54,12 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("My Movie Channels");
 		
+		
 		Path path = LibraryHandler.getFilePath();
 		if (path != null) {
+			System.out.println(path);
 			setLibrary(LibraryHandler.loadLibraryFromFile(path));
-		}
+		} 
 		
 		initRoot();
 		

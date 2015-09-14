@@ -74,6 +74,7 @@ public class LibraryHandler {
 			setFilePath(path);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Save error");
 			alert.setHeaderText("Unable to save data");

@@ -40,11 +40,11 @@ public class RootLayoutController {
 		
 		//Show save file dialog
 		File file = chooser.showOpenDialog(mainApp.getPrimaryStage());
-		Path path = Paths.get(file.toURI());
-		
-		if (path != null) {
+		if (file != null) {
+			Path path = Paths.get(file.toURI());
 			mainApp.setLibrary(LibraryHandler.loadLibraryFromFile(path));
 		}
+			
 	}
 	
 	@FXML
@@ -74,10 +74,6 @@ public class RootLayoutController {
         Path path = Paths.get(file.toURI());
 
         if (path != null) {
-            // Make sure it has the correct extension
-            if (!path.endsWith(".xml")) {
-                path = Paths.get(path + ".xml");
-            }
             LibraryWrapper wrapper = new LibraryWrapper();
 			wrapper.setChannels(mainApp.getChannels());
 			wrapper.setMovies(mainApp.getMovies());

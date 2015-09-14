@@ -1,10 +1,15 @@
 package org.mrkproj.mmc.model.movie;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import org.mrkproj.mmc.model.Genre;
+import org.mrkproj.mmc.util.ActorListAdapter;
+import org.mrkproj.mmc.util.PathAdapter;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -55,8 +60,12 @@ public class Movie {
 	 * @param file location of the movie
 	 */
 	public Movie(Path filename) {
-		this(filename, filename.getFileName().toString(), LocalDateTime.now().getYear(), 0, 
+		this(filename, filename.getFileName().toString(), LocalDateTime.now().getYear(), 3, 
 				new boolean[Genre.GENRES], new ArrayList<>());
+	}
+	
+	public Movie() {
+		this(Paths.get(""));
 	}
 
 	public String getTitle() {
@@ -75,6 +84,7 @@ public class Movie {
 		return genres;
 	}
 	
+	@XmlJavaTypeAdapter(ActorListAdapter.class)
 	public List<String> getActors() {
 		return actors.get();
 	}
@@ -83,6 +93,7 @@ public class Movie {
 		return actors;
 	}
 
+	@XmlJavaTypeAdapter(PathAdapter.class)
 	public Path getFilename() {
 		return filename.get();
 	}

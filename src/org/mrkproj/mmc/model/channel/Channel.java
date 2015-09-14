@@ -4,8 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.model.movie.MovieInstance;
+import org.mrkproj.mmc.util.ActorListAdapter;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -45,6 +48,10 @@ public class Channel {
 		this.genres = new SimpleObjectProperty<>();
 		this.actors = new SimpleObjectProperty<>();
 		queue = new LinkedList<>();
+	}
+	
+	public Channel() {
+		this("");
 	}
 	
 	/**
@@ -147,6 +154,7 @@ public class Channel {
 		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = false;
 	}
 	
+	@XmlJavaTypeAdapter(ActorListAdapter.class)
 	public List<String> getActors() {
 		return actors.get();
 	}

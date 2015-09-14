@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.util.ActorListAdapter;
+import org.mrkproj.mmc.util.GenreAdapter;
 import org.mrkproj.mmc.util.PathAdapter;
 
 import javafx.beans.property.IntegerProperty;
@@ -28,7 +29,7 @@ public class Movie {
 	private final ObjectProperty<Path> filename;
 	private final StringProperty title;
 	private final IntegerProperty year;
-	private final IntegerProperty length; //change to final once available TODO
+	private final IntegerProperty length;
 	private final ObjectProperty<boolean[]> genres;
 	private final ObjectProperty<List<String>> actors;
 	
@@ -76,6 +77,7 @@ public class Movie {
 		return title;
 	}
 
+	@XmlJavaTypeAdapter(GenreAdapter.class)
 	public boolean[] getGenres() {
 		return genres.get();
 	}

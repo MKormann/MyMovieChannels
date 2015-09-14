@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.model.movie.MovieInstance;
 import org.mrkproj.mmc.util.ActorListAdapter;
+import org.mrkproj.mmc.util.GenreAdapter;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -125,6 +126,7 @@ public class Channel {
 		return nextMovie;
 	}
 	
+	@XmlJavaTypeAdapter(GenreAdapter.class)
 	public boolean[] getGenres() {
 		return genres.get();
 	}

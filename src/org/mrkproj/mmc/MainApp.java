@@ -59,7 +59,7 @@ public class MainApp extends Application {
 		if (path != null) {
 			System.out.println(path);
 			setLibrary(LibraryHandler.loadLibraryFromFile(path));
-		} 
+		}
 		
 		initRoot();
 		

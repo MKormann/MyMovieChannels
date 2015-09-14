@@ -158,10 +158,11 @@ public class CreateChannelController {
 		
 		//Set check boxes to show channel's genres
 		boolean[] genres = channel.getGenres();
-		for (int i = 0; i < genres.length; i++) {
-			checkBoxes.get(i).setSelected(genres[i]);
+		if (genres != null) {
+			for (int i = 0; i < genres.length; i++) {
+				checkBoxes.get(i).setSelected(genres[i]);
+			}
 		}
-		
 		//Set actor text fields to show channel's actors
 		List<String> listActor = channel.getActors();
 		int len = listActor.size();

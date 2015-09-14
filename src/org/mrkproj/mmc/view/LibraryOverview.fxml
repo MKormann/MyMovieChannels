@@ -31,15 +31,16 @@
    <bottom>
       <AnchorPane prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar buttonMinWidth="100.0" layoutX="416.0" prefHeight="40.0" prefWidth="374.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <ButtonBar buttonMinWidth="100.0" layoutX="323.0" prefHeight="40.0" prefWidth="467.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <buttons>
+                  <Button mnemonicParsing="false" onAction="#editMovieFromTable" text="Edit Movie" />
                   <Button mnemonicParsing="false" onAction="#addFolder" text="Add Folder..." />
                   <Button mnemonicParsing="false" onAction="#addFile" text="Add File..." />
                 <Button mnemonicParsing="false" onAction="#removeMovie" text="Remove" />
               </buttons>
             </ButtonBar>
-            <Button layoutX="250.0" layoutY="15.0" mnemonicParsing="false" onAction="#createChannel" prefHeight="31.0" prefWidth="150.0" text="Create Channel" />
-            <Button layoutX="39.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToChannels" prefWidth="150.0" text="Channel List" />
+            <Button layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToChannels" prefWidth="150.0" text="Channel List" />
+            <Button layoutX="191.0" layoutY="15.0" mnemonicParsing="false" onAction="#createChannel" prefHeight="31.0" prefWidth="139.0" text="Create Channel" />
          </children>
       </AnchorPane>
    </bottom>

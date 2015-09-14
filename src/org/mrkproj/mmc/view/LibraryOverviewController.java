@@ -192,4 +192,48 @@ public class LibraryOverviewController {
 			alert.showAndWait();
 		}
 	}
+	
+	@FXML
+	public void editMovieFromTable() {
+		int index = movieTable.getSelectionModel().getSelectedIndex();
+		if (index >= 0) {
+			editMovie(movieTable.getItems().get(index));
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("No movie selected.");
+			alert.setContentText("Select a movie from table to remove.");
+			
+			alert.showAndWait();
+		}
+	}
+	
+	/**
+	 * Edit movie
+	 */
+	private void editMovie(Movie movie) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/EditMovie.fxml"));
+			AnchorPane pane = (AnchorPane)loader.load();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Movie");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApp.getPrimaryStage());
+			Scene scene = new Scene(pane);
+			dialogStage.setScene(scene);
+			
+			EditMovieController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setLabel("Edit Movie");
+			controller.setMovie(movie);
+			
+			dialogStage.showAndWait(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			//TODO
+		}
+	}
 }

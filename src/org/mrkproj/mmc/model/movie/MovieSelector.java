@@ -1,6 +1,8 @@
 package org.mrkproj.mmc.model.movie;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.mrkproj.mmc.model.Genre;
 
@@ -13,8 +15,19 @@ import org.mrkproj.mmc.model.Genre;
  */
 public class MovieSelector {
 	
+	private Set<Movie> moviePool;
+	private List<Movie> movieLibrary;
+	
 	public MovieSelector() {
-		
+		moviePool = new HashSet<>();
+	}
+	
+	/**
+	 * Set a reference to the main library of movies
+	 * @param movies total movie list
+	 */
+	public void setLibrary(List<Movie> movies) {
+		movieLibrary = movies;
 	}
 	
 	/**
@@ -24,8 +37,23 @@ public class MovieSelector {
 	 */
 	public Iterable<MovieInstance> getMovies(int N) {
 		ArrayList<MovieInstance> movies = new ArrayList<>();
+		if (moviePool.size() == 0) return movies;
+		if (moviePool.size() == 1) {
+			for (int i = 0; i < N; i++) {
+				movies.add(new MovieInstance((Movie)moviePool.toArray()[0]));
+			}
+			return movies;
+		}
+		Movie[] moviePoolArray = (Movie[])moviePool.toArray();
+		int prev = -1;
 		for (int i = 0; i < N; i++) {
-			
+			int curr = prev;
+			while (curr == prev) {
+				curr = (int)Math.random() * moviePoolArray.length + 1;
+			}
+			MovieInstance instance = new MovieInstance(moviePoolArray[curr]);
+			movies.add(instance);
+			prev = curr;
 		}
 		return movies;
 	}
@@ -34,39 +62,54 @@ public class MovieSelector {
 	 * 
 	 * @param genres list of genres for movies to be chosen from
 	 * @param actors list of actors in generated movies
-	 * @return iterable list of movies in ANY of given genres with AT LEAST one or more of given actors
+	 * @return set of movies in ANY of given genres with AT LEAST one or more of given actors
 	 */
-	public Iterable<Movie> createMoviePool(List<Genre> genres, List<String> actors) {
-		ArrayList<Movie> movies = new ArrayList<>();
-		//TODO add database access to generate movies
-		if (genres == null) ;
-		if (actors == null) ;
-		return movies;
+	public void createMoviePool(boolean[] genres, List<String> actors) {
+		if (genres.length != Genre.GENRES) genres = null;
+		if (genres == null && actors == null) {
+			moviePool.addAll(movieLibrary);
+		}
+		else {
+			for (Movie m : movieLibrary) {
+				for (int i = 0; i < genres.length; i++) {
+					if (m.getGenres()[i] && genres[i]) {
+						moviePool.add(m);
+						break;
+					}
+				}
+				for (String s : m.getActors()) {
+					if (actors.contains(s)) {
+						moviePool.add(m);
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	/**
 	 * 
 	 * @param genres list of genres for movies to be chosen from
-	 * @return iterable list of movies in ANY of given genres
+	 * @return set of movies in ANY of given genres
 	 */
-	public Iterable<Movie> createMovieGenrePool(List<Genre> genres) {
-		return createMoviePool(genres, null);
+	public void createMoviePool(boolean[] genres) {
+		createMoviePool(genres, null);
 	}
 	
 	/**
 	 * 
 	 * @param actors list of actors in generated movies
-	 * @return iterable list of movies including AT LEAST one or more of the given actors
+	 * @return set of movies including AT LEAST one or more of the given actors
 	 */
-	public Iterable<Movie> createMovieActorPool(List<String> actors) {
-		return createMoviePool(null, actors);
+	public void createMoviePool(List<String> actors) {
+		createMoviePool(null, actors);
 	}
 	
 	/**
 	 * 
-	 * @return calls method to return iterable list of movies with no genre or actor filters
+	 * @return calls method to return set of movies with no genre or actor filters
 	 */
-	public Iterable<Movie> createMoviePool() {
-		return createMoviePool(null, null);
+	public void createMoviePool() {
+		createMoviePool(null, null);
 	}
 }

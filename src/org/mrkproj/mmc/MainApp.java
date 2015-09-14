@@ -41,12 +41,7 @@ public class MainApp extends Application {
 	private Set<Path> moviePaths = new HashSet<>();
 
 	public MainApp() {
-		movies.add(new Movie(Paths.get(""), "The Matrix", 1999, 7921, new boolean[Genre.GENRES], new ArrayList<>()));
-		movies.add(new Movie(Paths.get(""), "Braveheart", 1995, 9033, new boolean[Genre.GENRES], new ArrayList<>()));
-		movies.add(new Movie(Paths.get(""), "Toy Story 3", 2011, 6974, new boolean[Genre.GENRES], new ArrayList<>()));
-		movies.add(new Movie(Paths.get(""), "Max Max: Fury Road", 2015, 7802, new boolean[Genre.GENRES], new ArrayList<>()));
-		channels.add(new Channel("Action Movies"));
-		channels.add(new Channel("Tom Cruise Collection"));
+
 	}
 	
 	@Override
@@ -57,7 +52,6 @@ public class MainApp extends Application {
 		
 		Path path = LibraryHandler.getFilePath();
 		if (path != null) {
-			System.out.println(path);
 			setLibrary(LibraryHandler.loadLibraryFromFile(path));
 		}
 		

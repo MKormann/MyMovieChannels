@@ -71,9 +71,8 @@ public class RootLayoutController {
 
         // Show save file dialog
         File file = chooser.showSaveDialog(mainApp.getPrimaryStage());
-        Path path = Paths.get(file.toURI());
-
-        if (path != null) {
+        if (file != null) {
+            Path path = Paths.get(file.toURI());
             LibraryWrapper wrapper = new LibraryWrapper();
 			wrapper.setChannels(mainApp.getChannels());
 			wrapper.setMovies(mainApp.getMovies());

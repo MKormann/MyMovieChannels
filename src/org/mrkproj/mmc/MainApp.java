@@ -112,20 +112,14 @@ public class MainApp extends Application {
 	
 	public void setLibrary(LibraryWrapper wrapper) {
 		channels.clear();
-		if (wrapper.getChannels() != null) {
-			channels.addAll(wrapper.getChannels());
-		}
+		channels.addAll(wrapper.getChannels());
 		movies.clear();
-		if (wrapper.getMovies() != null) {
-			movies.addAll(wrapper.getMovies());
-		}
+		movies.addAll(wrapper.getMovies());
 		moviePaths.clear();
 		//Add path for each movie to set
-		if (wrapper.getMovies() != null) {
-			for (Movie m : wrapper.getMovies()) {
-				moviePaths.add(m.getFilename());
-			}	
-		}
+		for (Movie m : wrapper.getMovies()) {
+			moviePaths.add(m.getFilename());
+		}	
 	}
 	
 	public Stage getPrimaryStage() {

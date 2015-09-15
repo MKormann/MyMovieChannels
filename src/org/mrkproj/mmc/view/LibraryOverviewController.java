@@ -167,8 +167,9 @@ public class LibraryOverviewController {
 		if (path != null) {
 			if (!mainApp.getMoviePaths().contains(path)) {
 				Movie movie = new Movie(path);
-				mainApp.getMovies().add(new Movie(path));
+				mainApp.getMovies().add(movie);
 				mainApp.getMoviePaths().add(path);
+				editMovie(movie);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.util.ActorListAdapter;
+import org.mrkproj.mmc.util.ActorWrapper;
 import org.mrkproj.mmc.util.GenreAdapter;
 import org.mrkproj.mmc.util.GenreWrapper;
 import org.mrkproj.mmc.util.PathAdapter;
@@ -32,7 +33,7 @@ public class Movie {
 	private final IntegerProperty year;
 	private final IntegerProperty length;
 	private final ObjectProperty<GenreWrapper> genres;
-	private final ObjectProperty<List<String>> actors;
+	private final ObjectProperty<ActorWrapper> actors;
 	
 	/**
 	 * Initializes a Movie object taking in the title, file location, length of movie, and a list of Genres
@@ -54,7 +55,7 @@ public class Movie {
 		ArrayList<String> temp2 = new ArrayList<>();
 		temp2.addAll(a);
 		this.genres = new SimpleObjectProperty<>(new GenreWrapper(temp));
-		this.actors = new SimpleObjectProperty<>(temp2);
+		this.actors = new SimpleObjectProperty<>(new ActorWrapper(temp2));
 	}
 	
 	/**
@@ -89,10 +90,10 @@ public class Movie {
 	
 	@XmlJavaTypeAdapter(ActorListAdapter.class)
 	public List<String> getActors() {
-		return actors.get();
+		return actors.get().get();
 	}
 	
-	public ObjectProperty<List<String>> getActorProperty() {
+	public ObjectProperty<ActorWrapper> getActorProperty() {
 		return actors;
 	}
 
@@ -149,6 +150,6 @@ public class Movie {
 	}
 	
 	public void setActors(List<String> actors) {
-		this.actors.set(actors);
+		this.actors.set(new ActorWrapper(actors));
 	}
 }

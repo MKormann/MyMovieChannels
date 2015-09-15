@@ -28,10 +28,10 @@ public class GenreWrapper {
 		String s = ""; 
 		for (int i = 0; i < genres.length; i++) {
 			if (genres[i]) {
-				s += GenreWrapper.names[i];
-				if (i != genres.length - 1) s += ", "; 
+				s += GenreWrapper.names[i] + ", "; 
 			}
 		}
+		if (s.length() > 0) s = s.substring(0, s.length() - 2);
 		return s;
 	}
 }

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.util.ActorListAdapter;
 import org.mrkproj.mmc.util.GenreAdapter;
+import org.mrkproj.mmc.util.GenreWrapper;
 import org.mrkproj.mmc.util.PathAdapter;
 
 import javafx.beans.property.IntegerProperty;
@@ -30,7 +31,7 @@ public class Movie {
 	private final StringProperty title;
 	private final IntegerProperty year;
 	private final IntegerProperty length;
-	private final ObjectProperty<boolean[]> genres;
+	private final ObjectProperty<GenreWrapper> genres;
 	private final ObjectProperty<List<String>> actors;
 	
 	/**
@@ -52,7 +53,7 @@ public class Movie {
 		}
 		ArrayList<String> temp2 = new ArrayList<>();
 		temp2.addAll(a);
-		this.genres = new SimpleObjectProperty<>(temp);
+		this.genres = new SimpleObjectProperty<>(new GenreWrapper(temp));
 		this.actors = new SimpleObjectProperty<>(temp2);
 	}
 	
@@ -79,10 +80,10 @@ public class Movie {
 
 	@XmlJavaTypeAdapter(GenreAdapter.class)
 	public boolean[] getGenres() {
-		return genres.get();
+		return genres.get().get();
 	}
 	
-	public ObjectProperty<boolean[]> getGenreProperty() {
+	public ObjectProperty<GenreWrapper> getGenreProperty() {
 		return genres;
 	}
 	
@@ -129,22 +130,22 @@ public class Movie {
 	}
 
 	public void setGenres(boolean[] genres) {
-		if (genres == null) this.genres.set(new boolean[Genre.GENRES]);
+		if (genres == null) this.genres.set(new GenreWrapper(new boolean[Genre.GENRES]));
 		else if (genres.length == Genre.GENRES) {
 			boolean[] temp = new boolean[Genre.GENRES];
 			for (int i = 0; i < Genre.GENRES; i++) {
 				temp[i] = genres[i];
 			}
-			this.genres.set(temp);
+			this.genres.set(new GenreWrapper(temp));
 		}
 	}
 	
 	public void addGenre(int i) {
-		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = true;
+		if (i >= 0 && i < Genre.GENRES) genres.get().get()[i] = true;
 	}
 	
 	public void removeGenre(int i) {
-		if (i >= 0 && i < Genre.GENRES) genres.get()[i] = false;
+		if (i >= 0 && i < Genre.GENRES) genres.get().get()[i] = false;
 	}
 	
 	public void setActors(List<String> actors) {

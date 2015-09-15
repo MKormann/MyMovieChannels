@@ -58,6 +58,7 @@ public class MainApp extends Application {
 		initRoot();
 		
 		displayChannels();
+		
 	}
 	
 	public void initRoot() {

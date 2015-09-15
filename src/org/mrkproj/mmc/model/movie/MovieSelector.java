@@ -35,7 +35,7 @@ public class MovieSelector {
 	 * @param N number of Instances to be created
 	 * @return list of Instances
 	 */
-	public Iterable<MovieInstance> getMovies(int N) {
+	public List<MovieInstance> getMovies(int N) {
 		ArrayList<MovieInstance> movies = new ArrayList<>();
 		if (moviePool.size() == 0) return movies;
 		if (moviePool.size() == 1) {
@@ -44,14 +44,14 @@ public class MovieSelector {
 			}
 			return movies;
 		}
-		Movie[] moviePoolArray = (Movie[])moviePool.toArray();
+		Object[] moviePoolArray = moviePool.toArray();
 		int prev = -1;
 		for (int i = 0; i < N; i++) {
 			int curr = prev;
 			while (curr == prev) {
-				curr = (int)Math.random() * moviePoolArray.length + 1;
+				curr = (int)(Math.random() * moviePoolArray.length);
 			}
-			MovieInstance instance = new MovieInstance(moviePoolArray[curr]);
+			MovieInstance instance = new MovieInstance((Movie)moviePoolArray[curr]);
 			movies.add(instance);
 			prev = curr;
 		}

@@ -26,7 +26,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Channel {
 	
-	private final static int MAX = 25;
+	public final static int MAX = 25;
 
 	private final StringProperty channelName;
 	private final StringProperty currentMovie;
@@ -34,6 +34,7 @@ public class Channel {
 	private final ObjectProperty<boolean[]> genres;
 	private final ObjectProperty<List<String>> actors;
 
+	private MovieInstance currentInstance;
 	private Queue<MovieInstance> queue;
 	
 	/**
@@ -60,7 +61,7 @@ public class Channel {
 	 * @return the first item in the movie queue
 	 */
 	public MovieInstance getCurrentMovie() {
-		return queue.peek();
+		return currentInstance;
 	}
 	
 	/**
@@ -75,21 +76,37 @@ public class Channel {
 	/**
 	 * Remove current movie, start next movie's counter
 	 */
-	private void startNextMovie() {
-		queue.remove();
-		currentMovie.set(queue.peek().toString());
-		queue.peek().startMovie();
+	public void startNextMovie() {
+		if (queue.isEmpty()) {
+			currentInstance = null;
+			currentMovie.set("");
+			return; //TODO add error message
+		} else {
+			currentInstance = queue.poll();
+			currentMovie.set(currentInstance.toString());
+			if (!queue.isEmpty()) nextMovie.set(queue.peek().toString());
+			else nextMovie.set("");
+		} 
 	}
 	
 	/**
-	 * Adds a number of movies equal to max length - queue.size to the end of the queue
+	 * 
+	 * @return size of the current playlist
 	 */
-	public void populateQueue() {
-		if (queue.size() > 10) return;
-		else {
-			for (int i = (MAX - queue.size()); i > 0; i--) {
-				//TODO add function call to random movie generator
-			}
+	public int currentQueueSize() {
+		return queue.size();
+	}
+	
+	/**
+	 * Adds a given list of movie instances to the queue
+	 */
+	public void addToQueue(List<MovieInstance> movies) {
+		queue.addAll(movies);
+		if (currentInstance == null && !queue.isEmpty()) {
+			currentInstance = queue.poll();
+			currentMovie.set(currentInstance.toString());
+			if (!queue.isEmpty()) nextMovie.set(queue.peek().toString());
+			else nextMovie.set("");
 		}
 	}
 	

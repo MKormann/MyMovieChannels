@@ -1,9 +1,12 @@
 package org.mrkproj.mmc.view;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mrkproj.mmc.MainApp;
 import org.mrkproj.mmc.model.channel.Channel;
+import org.mrkproj.mmc.model.movie.MovieInstance;
+import org.mrkproj.mmc.model.movie.MovieSelector;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,12 +44,12 @@ public class ChannelOverviewController {
 		currentMovieColumn.setCellValueFactory(data -> data.getValue().getCurrentMovieProperty());
 		//timeColumn.setCellValueFactory(data -> data.getValue().get);
 		nextMovieColumn.setCellValueFactory(data -> data.getValue().getNextMovieProperty());
-		
 	}
 	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		channelTable.setItems(mainApp.getChannels());
+		populateAllQueues();
 	}
 	
 	/**
@@ -88,11 +91,14 @@ public class ChannelOverviewController {
 			controller.setLabel("Create New Channel");
 			dialogStage.showAndWait();
 			
+			Channel channel = controller.getChannel();
 			if (controller.isSubmitted()) {
-				channelTable.getItems().add(controller.getChannel());
+				channelTable.getItems().add(channel);
 			}
 			
-			//TODO Populate channel's queue and start 
+			populateQueue(channel);
+			channel.startNextMovie();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			//TODO
@@ -126,7 +132,9 @@ public class ChannelOverviewController {
 				controller.setChannel(channel);
 				dialogStage.showAndWait();
 				
-				//TODO repopulate channel queue, either from end of current or replace current
+				//TODO repopulates queue from end, need to erase current queue except current movie, and repop
+				populateQueue(controller.getChannel());
+				if (channel.getCurrentMovie() == null) channel.startNextMovie();
 			} catch (Exception e) {
 				e.printStackTrace();
 				//TODO
@@ -151,6 +159,26 @@ public class ChannelOverviewController {
 			if (result.get() == ButtonType.OK){
 			    channelTable.getItems().remove(index);
 			}
+		}
+	}
+	
+	/**
+	 * Populate a channel's queue with corresponding movies
+	 */
+	private void populateQueue(Channel channel) {
+		MovieSelector selector = new MovieSelector();
+		selector.setLibrary(mainApp.getMovies());
+		selector.createMoviePool(channel.getGenres(), channel.getActors());
+		List<MovieInstance> list = selector.getMovies(Channel.MAX - channel.currentQueueSize());
+		channel.addToQueue(list);
+	}
+	
+	/**
+	 * Check's all channels for an empty queue and attempts to fill them
+	 */
+	public void populateAllQueues() {
+		for (Channel c : channelTable.getItems()) {
+			if (c.getCurrentMovie() == null) populateQueue(c);
 		}
 	}
 }

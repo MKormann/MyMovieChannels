@@ -5,9 +5,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.mrkproj.mmc.MainApp;
 import org.mrkproj.mmc.model.channel.Channel;
 import org.mrkproj.mmc.model.movie.Movie;
+
+import com.xuggle.xuggler.IContainer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +38,7 @@ public class LibraryOverviewController {
 	@FXML
 	private TableColumn<Movie, Number> yearColumn;
 	@FXML
-	private TableColumn<Movie, Number> lengthColumn;
+	private TableColumn<Movie, String> lengthColumn;
 	@FXML
 	private TableColumn<Movie, String> starringColumn;
 	@FXML
@@ -60,7 +63,7 @@ public class LibraryOverviewController {
 	private void initialize() {
 		titleColumn.setCellValueFactory(data -> data.getValue().getTitleProperty());
 		yearColumn.setCellValueFactory(data -> data.getValue().getYearProperty());
-		lengthColumn.setCellValueFactory(data -> data.getValue().getLengthProperty());
+		lengthColumn.setCellValueFactory(data -> data.getValue().getLengthProperty().asString());
 		starringColumn.setCellValueFactory(data -> data.getValue().getActorProperty().asString());
 		genreColumn.setCellValueFactory(data -> data.getValue().getGenreProperty().asString());
 		
@@ -164,12 +167,29 @@ public class LibraryOverviewController {
 		
 		File file = chooser.showOpenDialog(mainApp.getPrimaryStage());
 		Path path = Paths.get(file.toURI());
-		if (path != null) {
-			if (!mainApp.getMoviePaths().contains(path)) {
+		
+		if (path != null && !mainApp.getMoviePaths().contains(path)) {
+			try {
 				Movie movie = new Movie(path);
+				IContainer container = IContainer.make();
+				if (container.open(path.toString(), IContainer.Type.READ, null) < 0)
+					throw new RuntimeException();
+				int duration = (int)(container.getDuration() / 1000000);
+				System.out.println(duration + " seconds");
+				System.out.println(DurationFormatUtils.formatDuration(duration * 1000, "H:m:s"));
+				System.out.println(DurationFormatUtils.formatDurationHMS(duration * 1000));
+				movie.setLength(duration);
 				mainApp.getMovies().add(movie);
 				mainApp.getMoviePaths().add(path);
 				editMovie(movie);
+			} catch (Exception e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(mainApp.getPrimaryStage());
+				alert.setTitle("File read error");
+				alert.setHeaderText("Cannot read video information.");
+				alert.setContentText("Video file will not be added.");
+				
+				alert.showAndWait();	
 			}
 		}
 	}

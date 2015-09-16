@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.mrkproj.mmc.model.Genre;
 import org.mrkproj.mmc.util.ActorListAdapter;
 import org.mrkproj.mmc.util.ActorWrapper;
+import org.mrkproj.mmc.util.DurationWrapper;
 import org.mrkproj.mmc.util.GenreAdapter;
 import org.mrkproj.mmc.util.GenreWrapper;
 import org.mrkproj.mmc.util.PathAdapter;
@@ -31,7 +32,7 @@ public class Movie {
 	private final ObjectProperty<Path> filename;
 	private final StringProperty title;
 	private final IntegerProperty year;
-	private final IntegerProperty length;
+	private final ObjectProperty<DurationWrapper> length;
 	private final ObjectProperty<GenreWrapper> genres;
 	private final ObjectProperty<ActorWrapper> actors;
 	
@@ -47,7 +48,7 @@ public class Movie {
 		this.filename = new SimpleObjectProperty<>(filename);
 		this.title = new SimpleStringProperty(title);
 		this.year = new SimpleIntegerProperty(year);
-		this.length = new SimpleIntegerProperty(length);
+		this.length = new SimpleObjectProperty<>(new DurationWrapper(length));
 		boolean[] temp = new boolean[Genre.GENRES];
 		for (int i = 0; i < g.length; i++) {
 			temp[i] = g[i];
@@ -63,7 +64,7 @@ public class Movie {
 	 * @param file location of the movie
 	 */
 	public Movie(Path filename) {
-		this(filename, filename.getFileName().toString(), LocalDateTime.now().getYear(), 3, 
+		this(filename, filename.getFileName().toString(), LocalDateTime.now().getYear(), 0, 
 				new boolean[Genre.GENRES], new ArrayList<>());
 	}
 	
@@ -107,10 +108,10 @@ public class Movie {
 	}
 	
 	public int getLength() {
-		return length.get();
+		return length.get().get();
 	}
 	
-	public IntegerProperty getLengthProperty() {
+	public ObjectProperty<DurationWrapper> getLengthProperty() {
 		return length;
 	}
 	
@@ -126,6 +127,10 @@ public class Movie {
 		this.title.set(title);
 	}
 
+	public void setLength(int length) {
+		this.length.set(new DurationWrapper(length));
+	}
+	
 	public void setYear(int year) {
 		this.year.set(year);
 	}

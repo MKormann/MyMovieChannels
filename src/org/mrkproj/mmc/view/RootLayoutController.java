@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.mrkproj.mmc.MainApp;
 import org.mrkproj.mmc.model.LibraryHandler;
 import org.mrkproj.mmc.model.LibraryWrapper;
+import org.mrkproj.mmc.model.movie.Movie;
 
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;

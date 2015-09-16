@@ -148,9 +148,24 @@ public class LibraryOverviewController {
 		if (directory != null && directory.isDirectory()) {
 			for (File file : FileUtils.listFiles(directory, extList2, true)) {
 				Path path = Paths.get(file.toURI());
-				if (!mainApp.getMoviePaths().contains(path)) {
-					mainApp.getMovies().add(new Movie(path));
-					mainApp.getMoviePaths().add(path);
+				if (path != null && !mainApp.getMoviePaths().contains(path)) {
+					try {
+						Movie movie = new Movie(path);
+						IContainer container = IContainer.make();
+						if (container.open(path.toString(), IContainer.Type.READ, null) < 0)
+							throw new RuntimeException();
+						movie.setLength((int)(container.getDuration() / 1000000));
+						mainApp.getMovies().add(movie);
+						mainApp.getMoviePaths().add(path);
+					} catch (Exception e) {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.initOwner(mainApp.getPrimaryStage());
+						alert.setTitle("File read error");
+						alert.setHeaderText("Cannot read video information.");
+						alert.setContentText("Video file will not be added.");
+						
+						alert.showAndWait();	
+					}
 				}
 			}
 		}
@@ -174,11 +189,7 @@ public class LibraryOverviewController {
 				IContainer container = IContainer.make();
 				if (container.open(path.toString(), IContainer.Type.READ, null) < 0)
 					throw new RuntimeException();
-				int duration = (int)(container.getDuration() / 1000000);
-				System.out.println(duration + " seconds");
-				System.out.println(DurationFormatUtils.formatDuration(duration * 1000, "H:m:s"));
-				System.out.println(DurationFormatUtils.formatDurationHMS(duration * 1000));
-				movie.setLength(duration);
+				movie.setLength((int)(container.getDuration() / 1000000));
 				mainApp.getMovies().add(movie);
 				mainApp.getMoviePaths().add(path);
 				editMovie(movie);

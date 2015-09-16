@@ -16,6 +16,8 @@ import org.mrkproj.mmc.view.ChannelOverviewController;
 import org.mrkproj.mmc.view.LibraryOverviewController;
 import org.mrkproj.mmc.view.RootLayoutController;
 
+import com.xuggle.xuggler.IContainer;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

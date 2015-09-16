@@ -123,6 +123,10 @@ public class Movie {
 		return year;
 	}
 	
+	public void setFilename(Path path) {
+		this.filename.set(path);
+	}
+	
 	public void setTitle(String title) {
 		this.title.set(title);
 	}

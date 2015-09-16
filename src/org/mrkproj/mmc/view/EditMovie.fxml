@@ -25,7 +25,7 @@
           <RowConstraints maxHeight="248.0" minHeight="9.0" prefHeight="167.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="139.0" text="Channel Name:" textAlignment="CENTER" GridPane.halignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="139.0" text="Movie Title:" textAlignment="CENTER" GridPane.halignment="CENTER" />
             <TextField fx:id="movieTitle" prefHeight="31.0" prefWidth="212.0" promptText="Enter title.." GridPane.columnIndex="1" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="180.0" text="Genres:" textAlignment="CENTER" GridPane.rowIndex="1">
                <padding>
@@ -83,8 +83,8 @@
                <children>
                   <TextField fx:id="actorOne" />
                   <TextField fx:id="actorTwo" GridPane.rowIndex="1" />
-                  <TextField fx:id="actorFour" GridPane.rowIndex="3" />
                   <TextField fx:id="actorThree" GridPane.rowIndex="2" />
+                  <TextField fx:id="actorFour" GridPane.rowIndex="3" />
                   <TextField fx:id="actorFive" GridPane.rowIndex="4" />
                </children>
             </GridPane>

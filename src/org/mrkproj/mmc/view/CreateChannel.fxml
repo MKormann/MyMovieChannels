@@ -83,8 +83,8 @@
                <children>
                   <TextField fx:id="actorOne" />
                   <TextField fx:id="actorTwo" GridPane.rowIndex="1" />
-                  <TextField fx:id="actorFour" GridPane.rowIndex="3" />
                   <TextField fx:id="actorThree" GridPane.rowIndex="2" />
+                  <TextField fx:id="actorFour" GridPane.rowIndex="3" />
                   <TextField fx:id="actorFive" GridPane.rowIndex="4" />
                </children>
             </GridPane>

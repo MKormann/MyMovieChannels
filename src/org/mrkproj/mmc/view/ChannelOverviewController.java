@@ -166,19 +166,19 @@ public class ChannelOverviewController {
 	 * Populate a channel's queue with corresponding movies
 	 */
 	private void populateQueue(Channel channel) {
-		MovieSelector selector = new MovieSelector();
-		selector.setLibrary(mainApp.getMovies());
-		selector.createMoviePool(channel.getGenres(), channel.getActors());
-		List<MovieInstance> list = selector.getMovies(Channel.MAX - channel.currentQueueSize());
-		channel.addToQueue(list);
+		if (channel.currentQueueSize() < Channel.REFILL) {
+			MovieSelector selector = new MovieSelector();
+			selector.setLibrary(mainApp.getMovies());
+			selector.createMoviePool(channel.getGenres(), channel.getActors());
+			List<MovieInstance> list = selector.getMovies(Channel.MAX - channel.currentQueueSize());
+			channel.addToQueue(list);
+		}
 	}
 	
 	/**
-	 * Check's all channels for an empty queue and attempts to fill them
+	 * Check's all channels    an empty queue and attempts to fill them
 	 */
 	public void populateAllQueues() {
-		for (Channel c : channelTable.getItems()) {
-			if (c.getCurrentMovie() == null) populateQueue(c);
-		}
+		channelTable.getItems().forEach(c -> populateQueue(c));
 	}
 }

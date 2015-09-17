@@ -27,6 +27,7 @@ import javafx.beans.property.StringProperty;
 public class Channel {
 	
 	public final static int MAX = 25;
+	public final static int REFILL = 8;
 
 	private final StringProperty channelName;
 	private final StringProperty currentMovie;

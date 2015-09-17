@@ -1,5 +1,6 @@
 package org.mrkproj.mmc.view;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,8 @@ public class EditMovieController {
 	private Label currentAction;
 	@FXML
 	private TextField movieTitle;
+	@FXML
+	private TextField yearField;
 	@FXML
 	private TextField actorOne;
 	@FXML
@@ -95,6 +98,7 @@ public class EditMovieController {
 			submitted = true;
 			if (movie != null) {
 				movie.setTitle(movieTitle.getText());
+				movie.setYear(Integer.parseInt(yearField.getText()));
 				movie.setGenres(getSelectedGenres());
 				movie.setActors(getActorList());
 			}
@@ -125,6 +129,21 @@ public class EditMovieController {
             
             return false;
 		}
+		try {
+			int year = Integer.parseInt(yearField.getText());
+			if (year < 1850 || year > LocalDateTime.now().getYear()) throw new NumberFormatException();
+		} catch (NumberFormatException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(dialogStage);
+            alert.setTitle("Form error.");
+            alert.setHeaderText("Error with form input.");
+            int maxYear = LocalDateTime.now().getYear();
+            alert.setContentText("The year must be an integer between 1850 and " + maxYear + ".");
+
+            alert.showAndWait();
+            
+			return false;
+		}
 		if (!isAnySelected() && getActorList().isEmpty()) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.initOwner(dialogStage);
@@ -149,8 +168,9 @@ public class EditMovieController {
 	public void setMovie(Movie movie) {
 		this.movie = movie;
 		
-		//Set channel name text field
+		//Set movie name and year text fields
 		movieTitle.setText(movie.getTitle());
+		yearField.setText(String.valueOf(movie.getYear()));
 		
 		//Set check boxes to show channel's genres
 		boolean[] genres = movie.getGenres();

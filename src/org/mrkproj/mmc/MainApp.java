@@ -119,9 +119,7 @@ public class MainApp extends Application {
 		movies.addAll(wrapper.getMovies());
 		moviePaths.clear();
 		//Add path for each movie to set
-		for (Movie m : wrapper.getMovies()) {
-			moviePaths.add(m.getFilename());
-		}	
+		wrapper.getMovies().forEach(m -> moviePaths.add(m.getFilename()));
 	}
 	
 	public Stage getPrimaryStage() {

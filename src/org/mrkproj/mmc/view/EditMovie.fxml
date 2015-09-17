@@ -7,32 +7,33 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="610.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mrkproj.mmc.view.EditMovieController">
+<AnchorPane prefHeight="639.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mrkproj.mmc.view.EditMovieController">
    <children>
       <Label fx:id="currentAction" layoutX="153.0" layoutY="14.0" text="Edit Movie" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <GridPane layoutX="54.0" layoutY="56.0" prefHeight="486.0" prefWidth="363.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="60.0">
+      <GridPane layoutX="54.0" layoutY="56.0" prefHeight="560.0" prefWidth="363.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="60.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="149.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="211.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="307.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="307.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="367.0" minHeight="10.0" prefHeight="298.0" valignment="TOP" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="248.0" minHeight="9.0" prefHeight="167.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="139.0" text="Movie Title:" textAlignment="CENTER" GridPane.halignment="CENTER" />
             <TextField fx:id="movieTitle" prefHeight="31.0" prefWidth="212.0" promptText="Enter title.." GridPane.columnIndex="1" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="180.0" text="Genres:" textAlignment="CENTER" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="180.0" text="Genres:" textAlignment="CENTER" GridPane.rowIndex="2">
                <padding>
                   <Insets top="5.0" />
                </padding>
             </Label>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -64,12 +65,12 @@
                   <Insets bottom="10.0" />
                </padding>
             </GridPane>
-            <Label alignment="CENTER" prefHeight="21.0" prefWidth="153.0" text="Actors/Actresses:" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="153.0" text="Actors/Actresses:" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                <padding>
                   <Insets top="5.0" />
                </padding>
             </Label>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -88,9 +89,11 @@
                   <TextField fx:id="actorFive" GridPane.rowIndex="4" />
                </children>
             </GridPane>
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="152.0" text="Year:" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="yearField" promptText="Enter year..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <ButtonBar buttonMinWidth="100.0" layoutX="32.0" layoutY="556.0" prefHeight="40.0" prefWidth="354.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
+      <ButtonBar buttonMinWidth="100.0" layoutX="34.0" layoutY="585.0" prefHeight="40.0" prefWidth="354.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="30.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#submitMovie" prefHeight="31.0" prefWidth="163.0" text="Submit" />
             <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />

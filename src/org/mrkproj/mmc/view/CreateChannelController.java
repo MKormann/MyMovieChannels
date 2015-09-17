@@ -138,6 +138,7 @@ public class CreateChannelController {
 
             Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
+				checkBoxes.values().forEach(c -> c.setSelected(true));
 			    return true;
 			}
             

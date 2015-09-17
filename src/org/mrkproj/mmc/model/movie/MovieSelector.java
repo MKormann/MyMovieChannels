@@ -47,6 +47,7 @@ public class MovieSelector {
 		Object[] moviePoolArray = moviePool.toArray();
 		int prev = -1;
 		for (int i = 0; i < N; i++) {
+			//ints curr and prev to check for the same movie being chosen twice in a row
 			int curr = prev;
 			while (curr == prev) {
 				curr = (int)(Math.random() * moviePoolArray.length);
